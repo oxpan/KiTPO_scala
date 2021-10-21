@@ -4,7 +4,7 @@ package View
 import List.TList
 
 class ConsolApp {
-  var list = new TList
+  var list:TList[Int] = new TList()
 
 
   def testCode() = {
