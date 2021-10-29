@@ -2,26 +2,26 @@ package git.group
 package List
 
 class TList[T](limit:Int){
-  class Node[T](data1:T){
+  class Node(data1:T){
     var data:T = data1
-    var next:Node[T] = null
+    var next:Node = null
   }
 
-  private var head:Node[T] = null
-  private var tail:Node[T] = null
+  private var head:Node = null
+  private var tail:Node = null
   private var size:Int = 0
   private var size_limit:Int = limit
 
   def pushFront(data:T):Boolean = {
     if (size < size_limit){
-      var nNode:Node[T] = new Node[T](data)
+      var nNode:Node = new Node(data)
 
       if (head == null){
         head = nNode
         tail = nNode
       }
       else {
-        var tmp:Node[T] = head
+        var tmp:Node = head
         head = nNode
         head.next = tmp
       }
@@ -34,7 +34,7 @@ class TList[T](limit:Int){
 
   def pushEnd(data:T):Boolean = {
     if (size < size_limit){
-      var nNode:Node[T] = new Node[T](data)
+      var nNode:Node = new Node(data)
 
       if (head == null){
         head = nNode
@@ -53,15 +53,15 @@ class TList[T](limit:Int){
 
   def add(data:T, index:Int):Boolean = {
     if (size < size_limit){
-      var nNode:Node[T] = new Node[T](data)
+      var nNode:Node = new Node(data)
 
       if (head == null){
         head = nNode
         tail = nNode
       }
       else {
-        var tmp:Node[T] = head
-        var current:Node[T] = null
+        var tmp:Node = head
+        var current:Node = null
         var n:Int = 0
         while (n < index){
           current = tmp
@@ -82,8 +82,8 @@ class TList[T](limit:Int){
     if (index < 0) {
       return false
     }
-    var toDel: Node[T] = null
-    var toDelPrev: Node[T] = null
+    var toDel: Node = null
+    var toDelPrev: Node = null
 
     if (head == null) {
       println("List is empty")
@@ -116,8 +116,8 @@ class TList[T](limit:Int){
     true
   }
 
-  private def findNode(id:Int):Node[T] = {
-    var res:Node[T] = head
+  private def findNode(id:Int):Node = {
+    var res:Node = head
     var n:Int = 0
     while (n < id){
       res = res.next
@@ -127,7 +127,7 @@ class TList[T](limit:Int){
   }
 
   def find(index:Int):T = {
-    var current:Node[T] = head
+    var current:Node = head
     var dataNode:T = current.data  /// Назойлевый коостыль найти по этой хрени инфу. Не забудь!
     if (index == 0){
       dataNode = current.data
@@ -143,7 +143,7 @@ class TList[T](limit:Int){
   }
 
   def finds(obj:T):Int = {
-    var current:Node[T] = head
+    var current:Node = head
     var index:Int = 0
     if (head == null){
       return -1
@@ -162,7 +162,7 @@ class TList[T](limit:Int){
 
   //временный метод служащий для тестов списка на начальных этапах
   def print():Boolean = {
-    var current:Node[T] = head
+    var current:Node = head
 
     if(head == null){
       println("list pust")
