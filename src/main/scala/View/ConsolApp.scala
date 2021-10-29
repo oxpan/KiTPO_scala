@@ -10,6 +10,12 @@ class ConsolApp {
   def testCode() = {
     println("code:")
     println(list.getSize())
+
+    list.pushFront(12)
+    list.pushFront(11)
+    println(list.getSize())
+
+
   }
 
   def run() = {
