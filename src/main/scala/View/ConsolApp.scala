@@ -13,7 +13,13 @@ class ConsolApp {
 
     list.pushFront(12)
     list.pushFront(11)
+    list.pushEnd(30)
+    list.add(40,2)
+    list.add(1,1)
     println(list.getSize())
+    println("list: ")
+
+    list.print()
 
 
   }
