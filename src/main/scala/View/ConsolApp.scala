@@ -4,7 +4,7 @@ package View
 import List.TList
 
 class ConsolApp {
-  var list:TList[Int] = new TList()
+  var list:TList[Int] = new TList(10)
 
 
   def testCode() = {
@@ -17,15 +17,51 @@ class ConsolApp {
     list.add(40,2)
     list.add(1,1)
     println(list.getSize())
+    println(list.getSizeLimit)
     println("list: ")
 
     list.print()
+    println()
+    println("delete list: ")
+    list.delete(2)
+    list.print()
+    println()
+    println("find list: ")
+    println("[2] "+list.find(2))
+    println("[int 30] "+list.finds(30))
+
+
+  }
+
+  def testDrive(maxElement:Int) = {
+    var list:TList[Int] = new TList(maxElement)
+    var n:Int = 0;
+    var i:Int = 0;
+    while (n < maxElement){
+      i = scala.util.Random.nextInt(maxElement).toInt
+      list.pushEnd(i)
+      n = n + 1
+    }
+    list.print()
+    println()
+    println("size: "+list.getSize())
+
+
+    n = 0
+    while (n < maxElement){
+      list.delete(0)
+      n = n + 1
+    }
+    println("clear")
+
 
 
   }
 
   def run() = {
-    testCode()
+//    testCode()
+    testDrive(40)
   }
+
 
 }
