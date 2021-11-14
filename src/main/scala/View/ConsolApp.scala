@@ -1,7 +1,7 @@
 package git.group
 package View
 
-import List.TList
+import List.{DoIt, TList}
 
 class ConsolApp {
   var list:TList[Int] = new TList(10)
@@ -9,6 +9,8 @@ class ConsolApp {
 
   def testCode() = {
     println("code:")
+
+
     println(list.getSize())
 
     list.pushFront(12)
@@ -20,16 +22,26 @@ class ConsolApp {
     println(list.getSizeLimit)
     println("list: ")
 
-    list.print()
+//    list.print()
     println()
     println("delete list: ")
     list.delete(2)
-    list.print()
-    println()
-    println("find list: ")
-    println("[2] "+list.find(2))
-    println("[int 30] "+list.finds(30))
+//    list.print()
+//    println()
+//    println("find list: ")
+//    println("[2] "+list.find(2))
+//    println("[int 30] "+list.finds(30))
 
+      def show = new DoIt[Int]
+      {
+        def doIt(o: Int):Unit = println(o)
+      }
+
+      list.forEach(show)
+
+      list.sort()
+
+      list.forEach(show)
 
   }
 
@@ -42,7 +54,7 @@ class ConsolApp {
       list.pushEnd(i)
       n = n + 1
     }
-    list.print()
+    //list.print()
     println()
     println("size: "+list.getSize())
 
@@ -59,8 +71,8 @@ class ConsolApp {
   }
 
   def run() = {
-//    testCode()
-    testDrive(40)
+    testCode()
+    //testDrive(40)
   }
 
 
