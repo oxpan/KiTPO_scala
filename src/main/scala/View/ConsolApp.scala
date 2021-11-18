@@ -2,6 +2,7 @@ package git.group
 package View
 
 import List.TList
+import git.group.Builder.BuilderInteger
 import git.group.Comaparator.ComparatorInteger
 
 class ConsolApp {
@@ -10,9 +11,18 @@ class ConsolApp {
 
   def testCode() =
   {
-    val num = 5.asInstanceOf[Any]
-    val num1 = 3.asInstanceOf[Any]
-    val com = new ComparatorInteger()
+    val builder = new BuilderInteger()
+
+    var num:Any = builder.createObject()
+    var num1:Any = builder.createObject()
+
+    val com = builder.getComparator
+
+    println(com.compare(num,num1))
+
+    num = builder.parseObject("139")
+    num1 = builder.parseObject("0")
+
     println(com.compare(num,num1))
 
   }
