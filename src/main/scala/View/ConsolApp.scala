@@ -2,34 +2,18 @@ package git.group
 package View
 
 import List.TList
+import git.group.Comaparator.ComparatorInteger
 
 class ConsolApp {
   var list:TList[Int] = new TList(10)
 
 
-  def testCode() = {
-    println("code:")
-    println(list.getSize())
-
-    list.pushFront(12)
-    list.pushFront(11)
-    list.pushEnd(30)
-    list.add(40,2)
-    list.add(1,1)
-    println(list.getSize())
-    println(list.getSizeLimit)
-    println("list: ")
-
-    list.print()
-    println()
-    println("delete list: ")
-    list.delete(2)
-    list.print()
-    println()
-    println("find list: ")
-    println("[2] "+list.find(2))
-    println("[int 30] "+list.finds(30))
-
+  def testCode() =
+  {
+    val num = 5.asInstanceOf[Any]
+    val num1 = 3.asInstanceOf[Any]
+    val com = new ComparatorInteger()
+    println(com.compare(num,num1))
 
   }
 
