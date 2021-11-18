@@ -1,9 +1,9 @@
 package git.group
 package List
 
-class TList[T <% Comparable[T]](limit:Int){
-  class Node(data1:T){
-    var data:T = data1
+class TList(limit:Int){
+  class Node(data1:Any){
+    var data:Any = data1
     var next:Node = null
   }
 
@@ -12,7 +12,7 @@ class TList[T <% Comparable[T]](limit:Int){
   private var size:Int = 0
   private var size_limit:Int = limit
 
-  def pushFront(data:T):Boolean = {
+  def pushFront(data:Any):Boolean = {
     if (size < size_limit){
       var nNode:Node = new Node(data)
 
@@ -32,7 +32,7 @@ class TList[T <% Comparable[T]](limit:Int){
     false
   }
 
-  def pushEnd(data:T):Boolean = {
+  def pushEnd(data:Any):Boolean = {
     if (size < size_limit){
       var nNode:Node = new Node(data)
 
@@ -51,7 +51,7 @@ class TList[T <% Comparable[T]](limit:Int){
     false
   }
 
-  def add(data:T, index:Int):Boolean = {
+  def add(data:Any, index:Int):Boolean = {
     if (size < size_limit){
       var nNode:Node = new Node(data)
 
@@ -66,22 +66,22 @@ class TList[T <% Comparable[T]](limit:Int){
         while (n < index){
           current = tmp
           tmp = tmp.next
-          n += 1
+          n = n + 1
         }
 
         current.next = nNode
         nNode.next = tmp
       }
-      size += 1
+      size = size + 1
       return true
     }
     false
   }
 
   def delete(index:Int):Boolean = {
-    if (index < 0)
+    if (index < 0) {
       return false
-
+    }
     var toDel: Node = null
     var toDelPrev: Node = null
 
@@ -112,7 +112,7 @@ class TList[T <% Comparable[T]](limit:Int){
       }
 
     }
-    size -= 1
+    size = size - 1
     true
   }
 
@@ -121,14 +121,14 @@ class TList[T <% Comparable[T]](limit:Int){
     var n:Int = 0
     while (n < id){
       res = res.next
-      n += 1
+      n = n + 1
     }
     res
   }
 
-  def find(index:Int):T = {
+  def find(index:Int):Any = {
     var current:Node = head
-    var dataNode:T = current.data
+    var dataNode:Any = current.data  /// Назойлевый коостыль найти по этой хрени инфу. Не забудь!
     if (index == 0){
       dataNode = current.data
       return dataNode
@@ -136,13 +136,13 @@ class TList[T <% Comparable[T]](limit:Int){
     var n:Int = 0
     while (n < index){
       current = current.next
-      n += 1
+      n = n + 1
     }
     dataNode = current.data
     dataNode
   }
 
-  def finds(obj:T):Int = {
+  def finds(obj:Any):Int = {
     var current:Node = head
     var index:Int = 0
     if (head == null){
@@ -153,127 +153,57 @@ class TList[T <% Comparable[T]](limit:Int){
         if (current.data == obj){
           return index
         }
-        index += 1
+        index = index + 1
         current = current.next
       }
     }
     -1
   }
 
-  def forEach(func:DoIt[T]):Boolean=
-  {
-    if(head == null)
-      return false
-    var cur:Node = head
+  //временный метод служащий для тестов списка на начальных этапах
+  def print():Boolean = {
+    var current:Node = head
 
-    var i:Int = 0
-    while(i<size)
-    {
-      func.doIt(cur.data)
-      cur=cur.next
-      i+=1
+    if(head == null){
+      println("list pust")
+      return false
+    }
+
+    while (current != null){
+//      println(current.data + " ")
+      printf(current.data + " ")
+      current = current.next
+
     }
     true
   }
 
-  def sort():Boolean=
-  {
-    if(!quickSort(0,size-1))
-      return false
-    true
-  }
 
-  private def swap (q:Int, z:Int):Boolean=
-  {
-    //q должно быть обязательно меньше z
-    //Если это условие нарушается, то делаем обмен индексов
-    var qq:Int = q
-    var zz:Int = z
-    if(q==z)
-      return false
-    else if(q>z)
-    {
-      qq = z
-      zz = q
-    }
-    var nqPrev:Node = head;
-    var nq:Node = head;
-    //Ищем ноду z
-    var nzPrev:Node = findNode(z-1)
-    var nz:Node = nzPrev.next;
-    //Ищем ноду q
-    if(qq>0)
-    {
-      nqPrev=findNode(q-1)
-      nq = nqPrev.next
-      nqPrev.next=nz
-    }
-    else
-      nq=findNode(q)
-    var buf:Node = head;
-    if(zz-qq == 1)
-      buf=nq
-    else
-      buf=nq.next
-    nq.next = nz.next
-    nz.next = buf
-    if(zz-qq > 1)
-      nzPrev.next = nq
-    //Если переставляли первый или последний элементы
-    if(qq==0)
-      head = nz
-    if(zz==size-1)
-      tail=nq
 
-    true
-  }
 
-  private def quickSort(low:Int, high:Int):Boolean=
-  {
-    if(size==0)
-      return false;
-    if(low >= high)
-      return false;
 
-    //Средний элемент
-    var middle:Int = low + (high-low)/2;
-    var opora:T = find(middle)
 
-    //Деление СД на 2 подмножества
-    var i:Int = low
-    var j:Int = high
-    while(i<=j)
-    {
-      while(find(i).compareTo(opora) == -1)
-        i=i+1
-
-      while(find(j).compareTo(opora) == 1)
-        j=j-1
-
-      if(i<=j)
-      {
-        swap(i,j)
-        i+=1
-        j-=1
-      }
-    }
-    //Рекурсивная сортировка левого и правого подмножеств
-    if(low<j)
-      quickSort(low,j);
-    if(high>i)
-      quickSort(i,high)
-    true;
-  }
 
 //GET
-  def getSize():Int = size
+//SET       пока я в запутоности от скалы нужныли эти сетеры или нет но пускай пока лежат
+  def getSize():Int = {
+    size
+  }
   def getSizeLimit:Int = size_limit
-//SET
-  def setSizeLimit(limit:Int):Boolean =
-  {
-    if(limit <= 0 || limit <= size)
+  def setSizeLimit(limit:Int):Boolean = {
+    if(limit <= 0 || limit <= size){
       return false
+    }
     size_limit = limit
     true
   }
+
+  def clear():Boolean={
+    if (head == null)
+      return false
+
+    while (head != null) delete(0)
+    true
+  }
+
 }
