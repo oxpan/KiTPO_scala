@@ -1,9 +1,9 @@
 package git.group
 package List
 
-class TList[T](limit:Int){
-  class Node(data1:T){
-    var data:T = data1
+class TList(limit:Int){
+  class Node(data1:Any){
+    var data:Any = data1
     var next:Node = null
   }
 
@@ -12,7 +12,7 @@ class TList[T](limit:Int){
   private var size:Int = 0
   private var size_limit:Int = limit
 
-  def pushFront(data:T):Boolean = {
+  def pushFront(data:Any):Boolean = {
     if (size < size_limit){
       var nNode:Node = new Node(data)
 
@@ -32,7 +32,7 @@ class TList[T](limit:Int){
     false
   }
 
-  def pushEnd(data:T):Boolean = {
+  def pushEnd(data:Any):Boolean = {
     if (size < size_limit){
       var nNode:Node = new Node(data)
 
@@ -51,7 +51,7 @@ class TList[T](limit:Int){
     false
   }
 
-  def add(data:T, index:Int):Boolean = {
+  def add(data:Any, index:Int):Boolean = {
     if (size < size_limit){
       var nNode:Node = new Node(data)
 
@@ -126,9 +126,9 @@ class TList[T](limit:Int){
     res
   }
 
-  def find(index:Int):T = {
+  def find(index:Int):Any = {
     var current:Node = head
-    var dataNode:T = current.data  /// Назойлевый коостыль найти по этой хрени инфу. Не забудь!
+    var dataNode:Any = current.data  /// Назойлевый коостыль найти по этой хрени инфу. Не забудь!
     if (index == 0){
       dataNode = current.data
       return dataNode
@@ -142,7 +142,7 @@ class TList[T](limit:Int){
     dataNode
   }
 
-  def finds(obj:T):Int = {
+  def finds(obj:Any):Int = {
     var current:Node = head
     var index:Int = 0
     if (head == null){
@@ -195,6 +195,14 @@ class TList[T](limit:Int){
       return false
     }
     size_limit = limit
+    true
+  }
+
+  def clear():Boolean={
+    if (head == null)
+      return false
+
+    while (head != null) delete(0)
     true
   }
 
