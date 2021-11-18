@@ -8,6 +8,5 @@ object main{
     var consol = new ConsolApp
     consol.testCode()
     consol.run()
-
   }
 }

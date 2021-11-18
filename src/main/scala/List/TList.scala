@@ -1,16 +1,25 @@
 package git.group
 package List
 
-class TList(limit:Int){
-  class Node(data1:Any){
-    var data:Any = data1
-    var next:Node = null
-  }
+import git.group.Builder.Builder
+import git.group.Comaparator.Comparator
+
+class TList(limit:Int, var builder:Builder)
+  {
+    class Node(data1:Any)
+    {
+      var data:Any = data1
+      var next:Node = null
+    }
+
+
 
   private var head:Node = null
   private var tail:Node = null
   private var size:Int = 0
   private var size_limit:Int = limit
+
+  private var comparator:Comparator = builder.getComparator
 
   def pushFront(data:Any):Boolean = {
     if (size < size_limit){
@@ -160,26 +169,94 @@ class TList(limit:Int){
     -1
   }
 
-  //временный метод служащий для тестов списка на начальных этапах
-  def print():Boolean = {
-    var current:Node = head
-
-    if(head == null){
-      println("list pust")
+  def sort():Boolean=
+  {
+    if(!quickSort(0,size-1))
       return false
-    }
-
-    while (current != null){
-//      println(current.data + " ")
-      printf(current.data + " ")
-      current = current.next
-
-    }
     true
   }
 
+  private def swap (q:Int, z:Int):Boolean=
+  {
+    //q должно быть обязательно меньше z
+    //Если это условие нарушается, то делаем обмен индексов
+    var qq:Int = q
+    var zz:Int = z
+    if(q==z)
+      return false
+    else if(q>z)
+    {
+      qq = z
+      zz = q
+    }
+    var nqPrev:Node = head;
+    var nq:Node = head;
+    //Ищем ноду z
+    var nzPrev:Node = findNode(z-1)
+    var nz:Node = nzPrev.next;
+    //Ищем ноду q
+    if(qq>0)
+    {
+      nqPrev=findNode(q-1)
+      nq = nqPrev.next
+      nqPrev.next=nz
+    }
+    else
+      nq=findNode(q)
+    var buf:Node = head;
+    if(zz-qq == 1)
+      buf=nq
+    else
+      buf=nq.next
+    nq.next = nz.next
+    nz.next = buf
+    if(zz-qq > 1)
+      nzPrev.next = nq
+    //Если переставляли первый или последний элементы
+    if(qq==0)
+      head = nz
+    if(zz==size-1)
+      tail=nq
 
+    true
+  }
 
+  private def quickSort(low:Int, high:Int):Boolean=
+  {
+    if(size==0)
+      return false;
+    if(low >= high)
+      return false;
+
+    //Средний элемент
+    var middle:Int = low + (high-low)/2;
+    var opora = find(middle)
+
+    //Деление СД на 2 подмножества
+    var i:Int = low
+    var j:Int = high
+    while(i<=j)
+    {
+      while(comparator.compare(find(i),opora)== -1)
+        i=i+1
+
+      while(comparator.compare(find(j),opora)== 1)
+        j=j-1
+
+      if(i<=j)
+      {
+        swap(i,j)
+        i+=1
+        j-=1
+      }
+    }
+    //Рекурсивная сортировка левого и правого подмножеств
+    if(low<j)
+      quickSort(low,j);
+    if(high>i)
+      quickSort(i,high)
+    true;
+  }
 
 
 
