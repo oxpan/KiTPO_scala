@@ -2,8 +2,12 @@ package git.group
 package View
 
 import List.TList
+import git.group.Builder.{Builder, BuilderInteger, BuilderString}
+import git.group.Comaparator.ComparatorInteger
+import git.group.Comaparator.Comparator
 
 class ConsolApp {
+
   private var list:TList = null
   private var switch_menu:Int = 0
   private var tmp_index:Int = 0
@@ -63,6 +67,8 @@ class ConsolApp {
   def toBuilder(name:String):Boolean = {
 //
     true
+=======
+
   }
 
 //  private def settingBuilder(name:String):Builder = {}
