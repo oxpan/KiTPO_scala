@@ -1,77 +1,53 @@
 package git.group
 package View
 
-import List.TList
+import List.{DoIt, TList}
+
 import git.group.Builder.{Builder, BuilderInteger, BuilderString}
+
+import java.io.{FileOutputStream, ObjectOutputStream}
+//import git.group.Builder.{Builder, BuilderInteger, BuilderString}
+
 import git.group.Comaparator.ComparatorInteger
 import git.group.Comaparator.Comparator
 
 class ConsolApp {
-
+  private var builder:Builder = null
   private var list:TList = null
   private var switch_menu:Int = 0
   private var tmp_index:Int = 0
   private var flag_menu:Boolean = true
 
-//  def testCode() = {
-//    println("code:")
-//    println(list.getSize())
-//
-//    list.pushFront(12)
-//    list.pushFront(11)
-//    list.pushEnd(30)
-//    list.add(40,2)
-//    list.add(1,1)
-//    println(list.getSize())
-//    println(list.getSizeLimit)
-//    println("list: ")
-//
-//    list.print()
-//    println()
-//    println("delete list: ")
-//    list.delete(2)
-//    list.print()
-//    println()
-//    println("find list: ")
-//    println("[2] "+list.find(2))
-//    println("[int 30] "+list.finds(30))
-//
-//
-//  }
-//
-//  def testDrive(maxElement:Int) = {
-//    var list:TList[Int] = new TList(maxElement)
-//    var n:Int = 0;
-//    var i:Int = 0;
-//    while (n < maxElement){
-//      i = scala.util.Random.nextInt(maxElement).toInt
-//      list.pushEnd(i)
-//      n = n + 1
-//    }
-//    list.print()
-//    println()
-//    println("size: "+list.getSize())
-//
-//
-//    n = 0
-//    while (n < maxElement){
-//      list.delete(0)
-//      n = n + 1
-//    }
-//    println("clear")
-//
-//
-//
-//  }
+
 
   def toBuilder(name:String):Boolean = {
-//
+    try {
+      builder = settingBuilder(name)
+    }catch {
+      case e:Exception => e.printStackTrace()
+        return false
+    }
+    list = new TList(100,builder)
     true
-=======
+  }
+
+  private def settingBuilder(name:String):Builder = {
+    if (name.equals(BuilderString.getName)) {
+      return new BuilderString
+    }else if (name.equals(BuilderInteger.getName)){
+      return new BuilderInteger
+    } else {
+      var e:Exception = new Exception("OSHIBKA: нет такого типа")
+      throw e
+    }
 
   }
 
-//  private def settingBuilder(name:String):Builder = {}
+  private def drawList()={
+    list.forEach(new DoIt {
+      override def doIt(o: Any): Unit = println(o.toString())
+    })
+  }
 
   def run() = {
     while (flag_menu) {
@@ -86,13 +62,12 @@ class ConsolApp {
         case 1 =>
           println("Введите данные")
           print(">>")
-//          list.pushFront()
-
+          list.pushFront(builder.parseObject(scala.io.StdIn.readLine()))
 
         case 2 =>
           println("Введите данные")
           print(">>")
-//          list.pushEnd()
+          list.pushEnd(builder.parseObject(scala.io.StdIn.readLine()))
 
 
         case 3 =>
@@ -101,17 +76,17 @@ class ConsolApp {
           tmp_index = scala.io.StdIn.readLine().toInt
           println("Введите данные")
           print(">>")
-//          list.add()
+          list.add(builder.parseObject(scala.io.StdIn.readLine()),tmp_index)
 
         case 4 =>
-//          list.pushFront()
+          list.pushFront(builder.createObject())
         case 5 =>
-//          list.pushEnd()
+          list.pushEnd(builder.createObject())
         case 6 =>
           println("Введите индекс элемента")
           print(">>")
           tmp_index = scala.io.StdIn.readLine().toInt
-//          list.add()
+          list.add(builder.createObject(),tmp_index)
         case 7 =>
           println("Введите индекс")
           print(">>")
@@ -123,9 +98,9 @@ class ConsolApp {
           tmp_index = scala.io.StdIn.readLine().toInt
           println("element: "+ list.find(tmp_index))
         case 9 =>
-//          list.sort()
+          list.sort()
         case 10 =>
-//          drawList()
+          drawList()
         case 11 =>
           println("Введите кол-во лементов")
           val elem:Int = scala.io.StdIn.readLine().toInt
@@ -135,7 +110,13 @@ class ConsolApp {
         case 13 =>
           println("Введите тип списка")
 
-        case 14 =>//bla
+        case 14 =>
+//          try
+//          {
+//
+//          }catch {
+//            case e:Exception
+//          }
         case 15 =>//bla
         case _ =>
           println("ochepyatka")

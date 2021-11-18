@@ -1,6 +1,6 @@
 package git.group.Comaparator
 
-class ComparatorString extends Comparator
+class ComparatorString extends Comparator with Serializable
 {
   override def compare(o1: Any, o2: Any): Int =
   {

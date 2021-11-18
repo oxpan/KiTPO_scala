@@ -2,9 +2,13 @@ package git.group.Builder
 
 import git.group.Comaparator.{Comparator, ComparatorInteger}
 
-class BuilderInteger extends Builder
+object BuilderInteger {
+  def getName:String = "Integer"
+}
+
+class BuilderInteger extends Builder with Serializable
 {
-  private val typename:String = "Integer"
+//  private val typename:String = "Integer"
 
   private val min:Int = 0
   private val max:Int = 100
@@ -20,6 +24,6 @@ class BuilderInteger extends Builder
 
   override def getComparator: Comparator = new ComparatorInteger()
 
-  override def getName: String = typename
+  override def getName: String = "Integer"
 
 }

@@ -3,10 +3,11 @@ package List
 
 import git.group.Builder.Builder
 import git.group.Comaparator.Comparator
+import git.group.List.DoIt
 
-class TList(limit:Int, var builder:Builder)
+class TList(limit:Int, var builder:Builder) extends Serializable
   {
-    class Node(data1:Any)
+    class Node(data1:Any) extends Serializable
     {
       var data:Any = data1
       var next:Node = null
@@ -258,6 +259,16 @@ class TList(limit:Int, var builder:Builder)
     true;
   }
 
+    def forEach(vall:DoIt) = {
+      var i:Int = 0
+      var cur:Node = head
+      while (i < size)
+        {
+          vall.doIt(cur.data)
+          cur = cur.next
+          i += 1
+        }
+    }
 
 
 

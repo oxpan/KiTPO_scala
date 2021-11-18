@@ -1,7 +1,7 @@
 package git.group.List
 
-trait DoIt[T]
+trait DoIt
 {
-  def doIt(o:T):Unit
+  def doIt(o:Any):Unit
 }
 

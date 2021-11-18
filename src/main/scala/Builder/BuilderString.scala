@@ -2,9 +2,13 @@ package git.group.Builder
 
 import git.group.Comaparator.{Comparator, ComparatorString}
 
-class BuilderString extends Builder
+object BuilderString  {
+  def getName:String = "String"
+}
+
+class BuilderString extends Builder with Serializable
 {
-  private val typeName = "String"
+//  private val typeName = "String"
   private val maxLength:Int = 100
   private val minCode:Int = 97
   private val maxCode:Int = 122
@@ -30,7 +34,7 @@ class BuilderString extends Builder
 
   override def getComparator: Comparator = new ComparatorString
 
-  override def getName: String = typeName
+  override def getName: String = "String"
 
 
 }
