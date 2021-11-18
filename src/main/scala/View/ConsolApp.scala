@@ -1,47 +1,42 @@
 package git.group
 package View
 
-import List.{DoIt, TList}
+import List.TList
+import git.group.Builder.{Builder, BuilderInteger, BuilderString}
+import git.group.Comaparator.ComparatorInteger
+import git.group.Comaparator.Comparator
 
 class ConsolApp {
   var list:TList[Int] = new TList(10)
 
 
-  def testCode() = {
-    println("code:")
+  def testCode() =
+  {
+    var builder:Builder = new BuilderInteger()
+
+    var num:Any = builder.createObject()
+    var num1:Any = builder.createObject()
+
+    var com:Comparator = builder.getComparator
+
+    println(com.compare(num,num1))
+
+    num = builder.parseObject("139")
+    num1 = builder.parseObject("0")
+
+    println(com.compare(num,num1))
 
 
-    println(list.getSize())
+    builder = new BuilderString
 
-    list.pushFront(12)
-    list.pushFront(11)
-    list.pushEnd(30)
-    list.add(40,2)
-    list.add(1,1)
-    println(list.getSize())
-    println(list.getSizeLimit)
-    println("list: ")
+    num = builder.createObject()
+    println(num)
+    num1 = builder.createObject()
+    println(num1)
 
-//    list.print()
-    println()
-    println("delete list: ")
-    list.delete(2)
-//    list.print()
-//    println()
-//    println("find list: ")
-//    println("[2] "+list.find(2))
-//    println("[int 30] "+list.finds(30))
+    com = builder.getComparator
 
-      def show = new DoIt[Int]
-      {
-        def doIt(o: Int):Unit = println(o)
-      }
-
-      list.forEach(show)
-
-      list.sort()
-
-      list.forEach(show)
+    println(com.compare(num,num1))
 
   }
 
@@ -54,7 +49,7 @@ class ConsolApp {
       list.pushEnd(i)
       n = n + 1
     }
-    //list.print()
+    list.print()
     println()
     println("size: "+list.getSize())
 
@@ -71,8 +66,8 @@ class ConsolApp {
   }
 
   def run() = {
-    testCode()
-    //testDrive(40)
+//    testCode()
+    testDrive(40)
   }
 
 
