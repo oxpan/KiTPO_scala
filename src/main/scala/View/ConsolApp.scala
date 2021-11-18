@@ -5,7 +5,7 @@ import List.{DoIt, TList}
 
 import git.group.Builder.{Builder, BuilderInteger, BuilderString}
 
-import java.io.{FileOutputStream, ObjectOutputStream}
+import java.io.{FileInputStream, FileOutputStream, ObjectInputStream, ObjectOutputStream}
 //import git.group.Builder.{Builder, BuilderInteger, BuilderString}
 
 import git.group.Comaparator.ComparatorInteger
@@ -111,13 +111,29 @@ class ConsolApp {
           println("Введите тип списка")
 
         case 14 =>
-//          try
-//          {
-//
-//          }catch {
-//            case e:Exception
-//          }
-        case 15 =>//bla
+          try
+          {
+            var out:ObjectOutputStream = new ObjectOutputStream(new FileOutputStream("list.bin"))
+            out.writeObject(list)
+            println("Успешная запись")
+
+          }catch {
+            case e:Exception => println("Ошибка записи")
+          }
+        case 15 =>
+          try {
+            var i:ObjectInputStream = new ObjectInputStream(new FileInputStream("list.bin"))
+
+            var loaded:TList = i.readObject().asInstanceOf[TList]
+//            builder = settingBuilder(loaded.getBuilder.getName().asInstanceOf[String])
+            builder = loaded.getBuilder
+            list = loaded
+            println("Успешное чтение")
+
+
+          }catch {
+            case e:Exception => println("Ошибка чтения")
+          }
         case _ =>
           println("ochepyatka")
       }

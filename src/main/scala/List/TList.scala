@@ -13,7 +13,7 @@ class TList(limit:Int, var builder:Builder) extends Serializable
       var next:Node = null
     }
 
-
+  def getBuilder:Builder = builder
 
   private var head:Node = null
   private var tail:Node = null
