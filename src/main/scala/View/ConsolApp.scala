@@ -2,34 +2,41 @@ package git.group
 package View
 
 import List.TList
+import git.group.Builder.{Builder, BuilderInteger, BuilderString}
+import git.group.Comaparator.ComparatorInteger
+import git.group.Comaparator.Comparator
 
 class ConsolApp {
   var list:TList[Int] = new TList(10)
 
 
-  def testCode() = {
-    println("code:")
-    println(list.getSize())
+  def testCode() =
+  {
+    var builder:Builder = new BuilderInteger()
 
-    list.pushFront(12)
-    list.pushFront(11)
-    list.pushEnd(30)
-    list.add(40,2)
-    list.add(1,1)
-    println(list.getSize())
-    println(list.getSizeLimit)
-    println("list: ")
+    var num:Any = builder.createObject()
+    var num1:Any = builder.createObject()
 
-    list.print()
-    println()
-    println("delete list: ")
-    list.delete(2)
-    list.print()
-    println()
-    println("find list: ")
-    println("[2] "+list.find(2))
-    println("[int 30] "+list.finds(30))
+    var com:Comparator = builder.getComparator
 
+    println(com.compare(num,num1))
+
+    num = builder.parseObject("139")
+    num1 = builder.parseObject("0")
+
+    println(com.compare(num,num1))
+
+
+    builder = new BuilderString
+
+    num = builder.createObject()
+    println(num)
+    num1 = builder.createObject()
+    println(num1)
+
+    com = builder.getComparator
+
+    println(com.compare(num,num1))
 
   }
 
