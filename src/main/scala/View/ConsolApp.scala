@@ -104,11 +104,23 @@ class ConsolApp {
         case 11 =>
           println("Введите кол-во лементов")
           val elem:Int = scala.io.StdIn.readLine().toInt
-//          testDriweList(elem)
+          testDriweList(elem)
         case 12 =>
           list.clear()
         case 13 =>
           println("Введите тип списка")
+          try{
+            var old:Builder = list.getBuilder
+            builder = settingBuilder(scala.io.StdIn.readLine())
+            if (!list.setBuilder(builder)){
+              println("Список не пустой. Очистите его перед сменой типа.")
+              builder = old
+
+            }
+
+          }catch {
+            case e:Exception => e.printStackTrace()
+          }
 
         case 14 =>
           try
@@ -138,6 +150,39 @@ class ConsolApp {
           println("ochepyatka")
       }
     }
+  }
+
+  private def testDriweList(maxElement:Int): Unit ={
+    var testlist:TList = new TList(maxElement,builder)
+
+    var i:Int = 0
+    while (i  < maxElement){
+      testlist.pushEnd(builder.createObject())
+      i += 1
+    }
+    println("\n\nСгенерированый список")
+    drawList(testlist)
+
+    println("\n\nПоиск каждого четвертого елемента")
+    i = 0
+    while (i < maxElement){
+      println(testlist.find(i))
+      i += 4
+    }
+
+    println("\n\nПроиизошла сортировка")
+    testlist.sort()
+    drawList(testlist)
+
+    testlist.clear()
+
+    println("Список удален")
+  }
+
+  private def drawList(otherlist:TList): Unit ={
+    otherlist.forEach(new DoIt {
+      override def doIt(o: Any): Unit = println(o.toString())
+    })
   }
 
   private def ConsoleMenu() = {

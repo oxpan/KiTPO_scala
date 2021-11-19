@@ -15,6 +15,15 @@ class TList(limit:Int, var builder:Builder) extends Serializable
 
   def getBuilder:Builder = builder
 
+  def setBuilder(builder: Builder):Boolean = {
+    if (size == 0){
+      this.builder = builder
+      this.comparator = builder.getComparator
+      return true
+    }
+    false
+  }
+
   private var head:Node = null
   private var tail:Node = null
   private var size:Int = 0
@@ -273,7 +282,7 @@ class TList(limit:Int, var builder:Builder) extends Serializable
 
 
 //GET
-//SET       пока я в запутоности от скалы нужныли эти сетеры или нет но пускай пока лежат
+//SET
   def getSize():Int = {
     size
   }
