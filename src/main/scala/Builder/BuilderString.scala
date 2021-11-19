@@ -8,12 +8,10 @@ object BuilderString  {
 
 class BuilderString extends Builder with Serializable
 {
-//  private val typeName = "String"
   private val maxLength:Int = 100
   private val minCode:Int = 97
   private val maxCode:Int = 122
   private val diap:Int = maxCode - minCode
-
 
   override def createObject(): Any =
   {
@@ -31,10 +29,6 @@ class BuilderString extends Builder with Serializable
   }
 
   override def parseObject(str: String): Any = str.asInstanceOf[Any]
-
   override def getComparator: Comparator = new ComparatorString
-
   override def getName: String = "String"
-
-
 }

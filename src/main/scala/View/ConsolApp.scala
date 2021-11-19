@@ -2,12 +2,8 @@ package git.group
 package View
 
 import List.{DoIt, TList}
-
 import git.group.Builder.{Builder, BuilderInteger, BuilderString}
-
 import java.io.{FileInputStream, FileOutputStream, ObjectInputStream, ObjectOutputStream}
-//import git.group.Builder.{Builder, BuilderInteger, BuilderString}
-
 import git.group.Comaparator.ComparatorInteger
 import git.group.Comaparator.Comparator
 
@@ -17,8 +13,6 @@ class ConsolApp {
   private var switch_menu:Int = 0
   private var tmp_index:Int = 0
   private var flag_menu:Boolean = true
-
-
 
   def toBuilder(name:String):Boolean = {
     try {
@@ -58,18 +52,14 @@ class ConsolApp {
         case 0 =>
           println("Выход")
           flag_menu = false
-
         case 1 =>
           println("Введите данные")
           print(">>")
           list.pushFront(builder.parseObject(scala.io.StdIn.readLine()))
-
         case 2 =>
           println("Введите данные")
           print(">>")
           list.pushEnd(builder.parseObject(scala.io.StdIn.readLine()))
-
-
         case 3 =>
           println("Введите индекс элемента")
           print(">>")
@@ -77,7 +67,6 @@ class ConsolApp {
           println("Введите данные")
           print(">>")
           list.add(builder.parseObject(scala.io.StdIn.readLine()),tmp_index)
-
         case 4 =>
           list.pushFront(builder.createObject())
         case 5 =>
@@ -115,34 +104,26 @@ class ConsolApp {
             if (!list.setBuilder(builder)){
               println("Список не пустой. Очистите его перед сменой типа.")
               builder = old
-
             }
-
           }catch {
             case e:Exception => e.printStackTrace()
           }
-
         case 14 =>
           try
           {
             var out:ObjectOutputStream = new ObjectOutputStream(new FileOutputStream("list.bin"))
             out.writeObject(list)
             println("Успешная запись")
-
           }catch {
             case e:Exception => println("Ошибка записи")
           }
         case 15 =>
           try {
             var i:ObjectInputStream = new ObjectInputStream(new FileInputStream("list.bin"))
-
             var loaded:TList = i.readObject().asInstanceOf[TList]
-//            builder = settingBuilder(loaded.getBuilder.getName().asInstanceOf[String])
             builder = loaded.getBuilder
             list = loaded
             println("Успешное чтение")
-
-
           }catch {
             case e:Exception => println("Ошибка чтения")
           }
@@ -205,5 +186,4 @@ class ConsolApp {
     println("0 - Выйти")
     println("----------------------------------")
   }
-
 }

@@ -8,8 +8,6 @@ object BuilderInteger {
 
 class BuilderInteger extends Builder with Serializable
 {
-//  private val typename:String = "Integer"
-
   private val min:Int = 0
   private val max:Int = 100
 
@@ -19,11 +17,7 @@ class BuilderInteger extends Builder with Serializable
     a += min
     a.asInstanceOf[Any]
   }
-
   override def parseObject(str: String): Any = str.toInt.asInstanceOf[Any]
-
   override def getComparator: Comparator = new ComparatorInteger()
-
   override def getName: String = "Integer"
-
 }

@@ -6,12 +6,18 @@ import git.group.Comaparator.Comparator
 import git.group.List.DoIt
 
 class TList(limit:Int, var builder:Builder) extends Serializable
+{
+  class Node(data1:Any) extends Serializable
   {
-    class Node(data1:Any) extends Serializable
-    {
-      var data:Any = data1
-      var next:Node = null
-    }
+    var data:Any = data1
+    var next:Node = null
+  }
+
+  private var head:Node = null
+  private var tail:Node = null
+  private var size:Int = 0
+  private var size_limit:Int = limit
+  private var comparator:Comparator = builder.getComparator
 
   def getBuilder:Builder = builder
 
@@ -23,13 +29,6 @@ class TList(limit:Int, var builder:Builder) extends Serializable
     }
     false
   }
-
-  private var head:Node = null
-  private var tail:Node = null
-  private var size:Int = 0
-  private var size_limit:Int = limit
-
-  private var comparator:Comparator = builder.getComparator
 
   def pushFront(data:Any):Boolean = {
     if (size < size_limit){
@@ -147,7 +146,7 @@ class TList(limit:Int, var builder:Builder) extends Serializable
 
   def find(index:Int):Any = {
     var current:Node = head
-    var dataNode:Any = current.data  /// Назойлевый коостыль найти по этой хрени инфу. Не забудь!
+    var dataNode:Any = current.data
     if (index == 0){
       dataNode = current.data
       return dataNode
@@ -268,25 +267,23 @@ class TList(limit:Int, var builder:Builder) extends Serializable
     true;
   }
 
-    def forEach(vall:DoIt) = {
-      var i:Int = 0
-      var cur:Node = head
-      while (i < size)
-        {
-          vall.doIt(cur.data)
-          cur = cur.next
-          i += 1
-        }
+  def forEach(vall:DoIt) = {
+    var i:Int = 0
+    var cur:Node = head
+    while (i < size)
+    {
+      vall.doIt(cur.data)
+      cur = cur.next
+      i += 1
     }
+  }
 
-
-
-//GET
-//SET
   def getSize():Int = {
     size
   }
+
   def getSizeLimit:Int = size_limit
+
   def setSizeLimit(limit:Int):Boolean = {
     if(limit <= 0 || limit <= size){
       return false
@@ -302,5 +299,4 @@ class TList(limit:Int, var builder:Builder) extends Serializable
     while (head != null) delete(0)
     true
   }
-
 }
