@@ -30,5 +30,5 @@ class BuilderString extends Builder with Serializable
 
   override def parseObject(str: String): Any = str.asInstanceOf[Any]
   override def getComparator: Comparator = new ComparatorString
-  override def getName: String = "String"
+  override def getName: String = BuilderString.getName
 }
