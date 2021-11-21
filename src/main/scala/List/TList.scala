@@ -178,7 +178,7 @@ class TList(limit:Int, var builder:Builder) extends Serializable
     -1
   }
 
-  def sort():Boolean=
+  def sort:Boolean=
   {
     if(!quickSort(0,size-1))
       return false
@@ -278,16 +278,13 @@ class TList(limit:Int, var builder:Builder) extends Serializable
     }
   }
 
-  def getSize():Int = {
-    size
-  }
+  def getSize:Int = size
 
   def getSizeLimit:Int = size_limit
 
   def setSizeLimit(limit:Int):Boolean = {
-    if(limit <= 0 || limit <= size){
+    if(limit <= 0 || limit <= size)
       return false
-    }
     size_limit = limit
     true
   }
