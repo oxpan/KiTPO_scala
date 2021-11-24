@@ -109,7 +109,7 @@ class ConsolApp {
           println("element: "+ list.find(tmp_index))
           clr
         case 9 =>
-          list.sort()
+          list.sort
           clr
         case 10 =>
           drawList()
@@ -193,7 +193,7 @@ class ConsolApp {
     }
 
     println("\n\nПроиизошла сортировка")
-    testlist.sort()
+    testlist.sort
     drawList(testlist)
 
     testlist.clear()

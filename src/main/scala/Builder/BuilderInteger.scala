@@ -19,5 +19,5 @@ class BuilderInteger extends Builder with Serializable
   }
   override def parseObject(str: String): Any = str.toInt.asInstanceOf[Any]
   override def getComparator: Comparator = new ComparatorInteger()
-  override def getName: String = "Integer"
+  override def getName: String = BuilderInteger.getName
 }
