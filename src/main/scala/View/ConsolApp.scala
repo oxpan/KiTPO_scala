@@ -22,7 +22,7 @@ class ConsolApp {
       case e:Exception => e.printStackTrace()
         return false
     }
-    list = new TList(100,builder)
+    list = new TList(builder)
     true
   }
 
@@ -30,6 +30,8 @@ class ConsolApp {
     try {
       if (os.contains("Windows"))
         new ProcessBuilder("cmd","/c","cls").inheritIO().start().waitFor()
+      else if (os.contains("Linux"))
+        new ProcessBuilder("/usr/bin/clear").inheritIO().start().waitFor()
       else
         Runtime.getRuntime().exec("clear")
     }catch {
@@ -173,7 +175,7 @@ class ConsolApp {
   }
 
   private def testDriweList(maxElement:Int): Unit ={
-    var testlist:TList = new TList(maxElement,builder)
+    var testlist:TList = new TList(builder)
 
     var i:Int = 0
     while (i  < maxElement){

@@ -5,7 +5,7 @@ import git.group.Builder.Builder
 import git.group.Comaparator.Comparator
 import git.group.List.DoIt
 
-class TList(limit:Int, var builder:Builder) extends Serializable
+class TList(var builder:Builder) extends Serializable
 {
   class Node(data1:Any) extends Serializable
   {
@@ -16,7 +16,6 @@ class TList(limit:Int, var builder:Builder) extends Serializable
   private var head:Node = null
   private var tail:Node = null
   private var size:Int = 0
-  private var size_limit:Int = limit
   private var comparator:Comparator = builder.getComparator
 
   def getBuilder:Builder = builder
@@ -30,70 +29,56 @@ class TList(limit:Int, var builder:Builder) extends Serializable
     false
   }
 
-  def pushFront(data:Any):Boolean = {
-    if (size < size_limit){
-      var nNode:Node = new Node(data)
+  def pushFront(data:Any) = {
+    var nNode: Node = new Node(data)
 
-      if (head == null){
-        head = nNode
-        tail = nNode
-      }
-      else {
-        var tmp:Node = head
-        head = nNode
-        head.next = tmp
-      }
-      size = size + 1
-        return true
+    if (head == null) {
+      head = nNode
+      tail = nNode
     }
-
-    false
+    else {
+      var tmp: Node = head
+      head = nNode
+      head.next = tmp
+    }
+    size = size + 1
   }
 
-  def pushEnd(data:Any):Boolean = {
-    if (size < size_limit){
-      var nNode:Node = new Node(data)
+  def pushEnd(data:Any) = {
+    var nNode: Node = new Node(data)
 
-      if (head == null){
-        head = nNode
-        tail = nNode
-      }
-      else {
-        tail.next = nNode
-        tail = nNode
-      }
-      size = size + 1
-      return true
+    if (head == null) {
+      head = nNode
+      tail = nNode
     }
-
-    false
+    else {
+      tail.next = nNode
+      tail = nNode
+    }
+    size = size + 1
   }
 
-  def add(data:Any, index:Int):Boolean = {
-    if (size < size_limit){
-      var nNode:Node = new Node(data)
+  def add(data:Any, index:Int) = {
+    var nNode: Node = new Node(data)
 
-      if (head == null){
-        head = nNode
-        tail = nNode
-      }
-      else {
-        var tmp:Node = head
-        var current:Node = null
-        var n:Int = 0
-        while (n < index){
-          current = tmp
-          tmp = tmp.next
-          n = n + 1
-        }
-
-        current.next = nNode
-        nNode.next = tmp
-      }
-      size = size + 1
-      return true
+    if (head == null) {
+      head = nNode
+      tail = nNode
     }
-    false
+    else {
+      var tmp: Node = head
+      var current: Node = null
+      var n: Int = 0
+      while (n < index) {
+        current = tmp
+        tmp = tmp.next
+        n = n + 1
+      }
+
+      current.next = nNode
+      nNode.next = tmp
+    }
+    size = size + 1
   }
 
   def delete(index:Int):Boolean = {
@@ -280,16 +265,6 @@ class TList(limit:Int, var builder:Builder) extends Serializable
 
   def getSize():Int = {
     size
-  }
-
-  def getSizeLimit:Int = size_limit
-
-  def setSizeLimit(limit:Int):Boolean = {
-    if(limit <= 0 || limit <= size){
-      return false
-    }
-    size_limit = limit
-    true
   }
 
   def clear():Boolean={
