@@ -6,9 +6,8 @@
         <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" />
       </element>
       <element id="module-output" name="KiTPO_2" />
-      <element id="extracted-dir" path="$USER_HOME$/.ivy2/cache/org.scala-lang/scala-library/jars/scala-library-2.13.6.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$USER_HOME$/.ivy2/cache/org.scala-lang/scala-reflect/jars/scala-reflect-2.13.6.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$USER_HOME$/.ivy2/cache/org.scala-lang/scala-library/srcs/scala-library-2.13.6-sources.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/AppData/Local/Coursier/cache/v1/https/repo1.maven.org/maven2/org/scala-lang/scala-library/2.13.6/scala-library-2.13.6.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/AppData/Local/Coursier/cache/v1/https/repo1.maven.org/maven2/org/scala-lang/scala-reflect/2.13.6/scala-reflect-2.13.6.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>

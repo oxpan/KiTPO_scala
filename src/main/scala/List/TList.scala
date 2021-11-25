@@ -41,10 +41,13 @@ class TList(var builder:Builder) extends Serializable
     else
     {
       val tmp:Node = head
+
+
       head = nNode
       head.next = tmp
     }
     size = size + 1
+
     true
   }
 
@@ -76,20 +79,19 @@ class TList(var builder:Builder) extends Serializable
   {
       val nNode:Node = new Node(data)
 
-      if (head == null){
-        head = nNode
-        tail = nNode
+    if (head == null) {
+      head = nNode
+      tail = nNode
+    }
+    else {
+      var tmp: Node = head
+      var current: Node = null
+      var n: Int = 0
+      while (n < index) {
+        current = tmp
+        tmp = tmp.next
+        n = n + 1
       }
-      else {
-        var tmp:Node = head
-        var current:Node = null
-        var n:Int = 0
-        while (n < index){
-          current = tmp
-          tmp = tmp.next
-          n = n + 1
-        }
-
         current.next = nNode
         nNode.next = tmp
       }
@@ -179,7 +181,7 @@ class TList(var builder:Builder) extends Serializable
     -1
   }
 
-  def sort:Boolean=
+  def sort():Boolean=
   {
     var r:TList = quickSort(this)
     head=r.head.asInstanceOf[Node]
