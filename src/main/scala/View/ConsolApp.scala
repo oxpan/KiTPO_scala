@@ -22,7 +22,7 @@ class ConsolApp {
       case e:Exception => e.printStackTrace()
         return false
     }
-    list = new TList(100,builder)
+    list = new TList(builder)
     true
   }
 
@@ -173,7 +173,7 @@ class ConsolApp {
   }
 
   private def testDriweList(maxElement:Int): Unit ={
-    var testlist:TList = new TList(maxElement,builder)
+    var testlist:TList = new TList(builder)
 
     var i:Int = 0
     while (i  < maxElement){

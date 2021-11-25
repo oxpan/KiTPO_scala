@@ -5,7 +5,7 @@ import git.group.Builder.Builder
 import git.group.Comaparator.Comparator
 import git.group.List.DoIt
 
-class TList(limit:Int, var builder:Builder) extends Serializable
+class TList(var builder:Builder) extends Serializable
 {
   class Node(data1:Any) extends Serializable
   {
@@ -16,7 +16,6 @@ class TList(limit:Int, var builder:Builder) extends Serializable
   private var head:Node = null
   private var tail:Node = null
   private var size:Int = 0
-  private var size_limit:Int = limit
   private var comparator:Comparator = builder.getComparator
 
   def getBuilder:Builder = builder
@@ -30,29 +29,28 @@ class TList(limit:Int, var builder:Builder) extends Serializable
     false
   }
 
-  def pushFront(data:Any):Boolean = {
-    if (size < size_limit){
-      var nNode:Node = new Node(data)
+  def pushFront(data:Any):Boolean =
+  {
+    var nNode:Node = new Node(data)
 
-      if (head == null){
-        head = nNode
-        tail = nNode
-      }
-      else {
-        var tmp:Node = head
-        head = nNode
-        head.next = tmp
-      }
-      size = size + 1
-        return true
+    if (head == null)
+    {
+      head = nNode
+      tail = nNode
     }
-
-    false
+    else
+    {
+      val tmp:Node = head
+      head = nNode
+      head.next = tmp
+    }
+    size = size + 1
+    true
   }
 
-  def pushEnd(data:Any):Boolean = {
-    if (size < size_limit){
-      var nNode:Node = new Node(data)
+  def pushEnd(data:Any):Boolean =
+  {
+      val nNode:Node = new Node(data)
 
       if (head == null){
         head = nNode
@@ -63,15 +61,20 @@ class TList(limit:Int, var builder:Builder) extends Serializable
         tail = nNode
       }
       size = size + 1
-      return true
-    }
-
-    false
+      true
   }
 
-  def add(data:Any, index:Int):Boolean = {
-    if (size < size_limit){
-      var nNode:Node = new Node(data)
+  private def pushEndd(toInsert: TList): Unit = {
+    if (toInsert != null) {
+      tail.next = toInsert.head.asInstanceOf[Node]
+      tail = toInsert.tail.asInstanceOf[Node]
+      size += toInsert.size
+    }
+  }
+
+  def add(data:Any, index:Int):Boolean =
+  {
+      val nNode:Node = new Node(data)
 
       if (head == null){
         head = nNode
@@ -91,9 +94,7 @@ class TList(limit:Int, var builder:Builder) extends Serializable
         nNode.next = tmp
       }
       size = size + 1
-      return true
-    }
-    false
+      true
   }
 
   def delete(index:Int):Boolean = {
@@ -180,8 +181,9 @@ class TList(limit:Int, var builder:Builder) extends Serializable
 
   def sort:Boolean=
   {
-    if(!quickSort(0,size-1))
-      return false
+    var r:TList = quickSort(this)
+    head=r.head.asInstanceOf[Node]
+    tail=r.tail.asInstanceOf[Node]
     true
   }
 
@@ -267,6 +269,46 @@ class TList(limit:Int, var builder:Builder) extends Serializable
     true;
   }
 
+  private def quickSort(list:TList):TList=
+  {
+    if(list== null)
+      return list;
+    var head_ = list.head
+    var it = head_.next
+    if(it==null)
+      return list;
+    var lesser:TList = null
+    var greater:TList = null
+    while (it !=null)
+    {
+      var comp:Int = comparator.compare(it.data,head_.data)
+      if(comp<0 || comp==0)
+      {
+        if(lesser==null)
+          lesser = new TList(builder)
+        lesser.pushEnd(it.data)
+      }
+      else
+      {
+        if(greater==null)
+          greater = new TList(builder)
+        greater.pushEnd(it.data)
+      }
+      it = it.next
+    }
+
+    lesser = quickSort(lesser)
+    greater = quickSort(greater)
+
+    var buf:TList = new TList(builder)
+    buf.pushEnd(head_.data)
+    buf.pushEndd(greater)
+    if(lesser==null)
+      return buf
+    lesser.pushEndd(buf)
+    lesser
+  }
+
   def forEach(vall:DoIt) = {
     var i:Int = 0
     var cur:Node = head
@@ -280,16 +322,8 @@ class TList(limit:Int, var builder:Builder) extends Serializable
 
   def getSize:Int = size
 
-  def getSizeLimit:Int = size_limit
-
-  def setSizeLimit(limit:Int):Boolean = {
-    if(limit <= 0 || limit <= size)
-      return false
-    size_limit = limit
-    true
-  }
-
-  def clear():Boolean={
+  def clear():Boolean=
+  {
     if (head == null)
       return false
 
