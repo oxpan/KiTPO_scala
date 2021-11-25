@@ -29,37 +29,55 @@ class TList(var builder:Builder) extends Serializable
     false
   }
 
-  def pushFront(data:Any) = {
-    var nNode: Node = new Node(data)
+  def pushFront(data:Any):Boolean =
+  {
+    var nNode:Node = new Node(data)
 
-    if (head == null) {
+    if (head == null)
+    {
       head = nNode
       tail = nNode
     }
-    else {
-      var tmp: Node = head
+    else
+    {
+      val tmp:Node = head
+
+
       head = nNode
       head.next = tmp
     }
     size = size + 1
+
+    true
   }
 
-  def pushEnd(data:Any) = {
-    var nNode: Node = new Node(data)
+  def pushEnd(data:Any):Boolean =
+  {
+      val nNode:Node = new Node(data)
 
-    if (head == null) {
-      head = nNode
-      tail = nNode
-    }
-    else {
-      tail.next = nNode
-      tail = nNode
-    }
-    size = size + 1
+      if (head == null){
+        head = nNode
+        tail = nNode
+      }
+      else {
+        tail.next = nNode
+        tail = nNode
+      }
+      size = size + 1
+      true
   }
 
-  def add(data:Any, index:Int) = {
-    var nNode: Node = new Node(data)
+  private def pushEndd(toInsert: TList): Unit = {
+    if (toInsert != null) {
+      tail.next = toInsert.head.asInstanceOf[Node]
+      tail = toInsert.tail.asInstanceOf[Node]
+      size += toInsert.size
+    }
+  }
+
+  def add(data:Any, index:Int):Boolean =
+  {
+      val nNode:Node = new Node(data)
 
     if (head == null) {
       head = nNode
@@ -74,11 +92,11 @@ class TList(var builder:Builder) extends Serializable
         tmp = tmp.next
         n = n + 1
       }
-
-      current.next = nNode
-      nNode.next = tmp
-    }
-    size = size + 1
+        current.next = nNode
+        nNode.next = tmp
+      }
+      size = size + 1
+      true
   }
 
   def delete(index:Int):Boolean = {
@@ -165,8 +183,9 @@ class TList(var builder:Builder) extends Serializable
 
   def sort():Boolean=
   {
-    if(!quickSort(0,size-1))
-      return false
+    var r:TList = quickSort(this)
+    head=r.head.asInstanceOf[Node]
+    tail=r.tail.asInstanceOf[Node]
     true
   }
 
@@ -252,6 +271,46 @@ class TList(var builder:Builder) extends Serializable
     true;
   }
 
+  private def quickSort(list:TList):TList=
+  {
+    if(list== null)
+      return list;
+    var head_ = list.head
+    var it = head_.next
+    if(it==null)
+      return list;
+    var lesser:TList = null
+    var greater:TList = null
+    while (it !=null)
+    {
+      var comp:Int = comparator.compare(it.data,head_.data)
+      if(comp<0 || comp==0)
+      {
+        if(lesser==null)
+          lesser = new TList(builder)
+        lesser.pushEnd(it.data)
+      }
+      else
+      {
+        if(greater==null)
+          greater = new TList(builder)
+        greater.pushEnd(it.data)
+      }
+      it = it.next
+    }
+
+    lesser = quickSort(lesser)
+    greater = quickSort(greater)
+
+    var buf:TList = new TList(builder)
+    buf.pushEnd(head_.data)
+    buf.pushEndd(greater)
+    if(lesser==null)
+      return buf
+    lesser.pushEndd(buf)
+    lesser
+  }
+
   def forEach(vall:DoIt) = {
     var i:Int = 0
     var cur:Node = head
@@ -263,11 +322,10 @@ class TList(var builder:Builder) extends Serializable
     }
   }
 
-  def getSize():Int = {
-    size
-  }
+  def getSize:Int = size
 
-  def clear():Boolean={
+  def clear():Boolean=
+  {
     if (head == null)
       return false
 
