@@ -6,28 +6,56 @@ import scalafx.Includes._
 import scalafx.application.JFXApp
 import scalafx.scene.Scene
 import scalafx.scene.control._
+import scalafx.scene.input.{KeyCodeCombination,KeyCode,KeyCombination}
+import scalafx.scene.layout.VBox
 import scalafx.scene.paint.Color._
 import scalafx.scene.shape.Rectangle
 
-import javax.swing.text.html.MinimalHTMLWriter
 
 object GUI_View extends JFXApp {
+  val fullScreenX = 845
+  val fullScreenY = 480
 
     stage = new JFXApp.PrimaryStage {
       title.value = "KiTPO GUI TList"
-      width = 500
-      height = 390
+      width = fullScreenX
+      height = fullScreenY
       centerOnScreen()
 //      sizeToScene()
       resizable = false
 
 
+
       scene = new Scene {
         fill = LightGreen
 
-        val download_button = new Button("Download")
-        val save_button = new Button("Save")
-        val sort_button = new Button("Sort")
+        val menuBar = new MenuBar
+
+//        file menu bar
+        val menuFile = new Menu("file")
+        val load_menu = new MenuItem("load")
+        load_menu.accelerator = new KeyCodeCombination(KeyCode.O,KeyCombination.ControlDown)
+        val save_menu = new MenuItem("save")
+        save_menu.accelerator = new KeyCodeCombination(KeyCode.I,KeyCombination.ControlDown)
+        val exit_menu = new MenuItem("exit")
+        exit_menu.accelerator = new KeyCodeCombination(KeyCode.D,KeyCombination.ControlDown)
+        menuFile.items = List(load_menu,save_menu,new SeparatorMenuItem,exit_menu)
+
+//        TList menu bar
+        val menuTList = new Menu("TList")
+        val sort_menu = new MenuItem("sort")
+        sort_menu.accelerator = new KeyCodeCombination(KeyCode.S,KeyCombination.ControlDown)
+        val gen_front = new MenuItem("genFront")
+        gen_front.accelerator = new KeyCodeCombination(KeyCode.F,KeyCombination.ControlDown)
+        val gen_back = new MenuItem("genBack")
+        gen_back.accelerator = new KeyCodeCombination(KeyCode.B,KeyCombination.ControlDown)
+        menuTList.items = List(sort_menu,new SeparatorMenuItem,gen_front,gen_back)
+
+
+        menuBar.menus = List(menuFile,menuTList)
+        menuBar.prefWidth = (fullScreenX)
+
+
         val pushFront_button = new Button("PushFront")
         val pushBack_button = new Button("PushBack")
         val add_button = new Button("Inset to Index")
@@ -37,43 +65,32 @@ object GUI_View extends JFXApp {
         val textArea = new TextArea
 
 //        положение кнопок
-        val XSetOne = 400 // <-- первая строка кнопок
-        val YSetOne = 20
-        val spaceOne = 40
-        val XSetTwo = 370 // <-- вторая строка кнопок
-        val YSetTwo = 190
-        val spaceTwo = 35
-
-        download_button.layoutX = XSetOne
-        download_button.layoutY = YSetOne
-        save_button.layoutX = XSetOne
-        save_button.layoutY = YSetOne+spaceOne
-        sort_button.layoutX = XSetOne
-        sort_button.layoutY = YSetOne+spaceOne+spaceOne+spaceOne
-        pushFront_button.layoutX = XSetTwo
-        pushFront_button.layoutY = YSetTwo
-        pushBack_button.layoutX = XSetTwo
-        pushBack_button.layoutY = YSetTwo+spaceTwo
-        add_button.layoutX = XSetTwo
-        add_button.layoutY = YSetTwo+spaceTwo+spaceTwo
-        delete_button.layoutX = XSetTwo
-        delete_button.layoutY = YSetTwo+spaceTwo+spaceTwo+spaceTwo
-        textArea.layoutX = 10
-        textArea.layoutY = 10
-        textArea.prefHeight = 160
-        textArea.prefWidth = 380
+//        pushFront_button.layoutX = XSetTwo
+//        pushFront_button.layoutY = YSetTwo
+//        pushBack_button.layoutX = XSetTwo
+//        pushBack_button.layoutY = YSetTwo+spaceTwo
+//        add_button.layoutX = XSetTwo
+//        add_button.layoutY = YSetTwo+spaceTwo+spaceTwo
+//        delete_button.layoutX = XSetTwo
+//        delete_button.layoutY = YSetTwo+spaceTwo+spaceTwo+spaceTwo
+        textArea.layoutX = fullScreenX/3 // <--- пробование динамического расположения (при создании окна - НЕПРИИЗМЕНЕНИИРАЗМЕРА)
+        textArea.layoutY = fullScreenY-(fullScreenY-30)
+        textArea.prefHeight = (fullScreenY-75)
+        textArea.prefWidth = fullScreenX-(fullScreenX/3 + 25)
         textArea.promptText = "TList:"
 
 //      список крнтента
         private val buttonList = List(
-          download_button,
-          save_button,
-          sort_button,
-          pushBack_button,
-          pushFront_button,
-          add_button,
-          delete_button,
-          textArea)
+//          download_button,
+//          save_button,
+//          sort_button,
+//          pushBack_button,
+//          pushFront_button,
+//          add_button,
+//          delete_button,
+          textArea,
+          menuBar
+        )
 
         content = buttonList
       }
