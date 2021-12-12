@@ -25,7 +25,6 @@ object GUI_View extends JFXApp {
       resizable = false
 
 
-
       scene = new Scene {
         fill = LightGreen
 
@@ -55,24 +54,135 @@ object GUI_View extends JFXApp {
         menuBar.menus = List(menuFile,menuTList)
         menuBar.prefWidth = (fullScreenX)
 
+        val PossX = 10
 
-        val pushFront_button = new Button("PushFront")
-        val pushBack_button = new Button("PushBack")
-        val add_button = new Button("Inset to Index")
-        val delete_button = new Button("Delete")
-        val findElem_button = new Button("Fint to element")
-        val findIndex_button = new Button("Find to index")
+        val insertLabel = new Label("Insert")
+        insertLabel.layoutX = PossX
+        insertLabel.layoutY = 30
+
+
+        val PossYInsert = 50
+
+        val insertTextField = new TextField
+        insertTextField.layoutX = PossX
+        insertTextField.layoutY = PossYInsert
+        insertTextField.prefWidth = 100
+        insertTextField.promptText = "element:"
+
+        val pushFront_button = new Button("front")
+        pushFront_button.layoutX = PossX+110
+        pushFront_button.layoutY = PossYInsert
+        pushFront_button.prefWidth = 60
+
+
+        val pushBack_button = new Button("back")
+        pushBack_button.layoutX = PossX+110+70
+        pushBack_button.layoutY = PossYInsert
+        pushBack_button.prefWidth = 60
+
+        val insertToIndexLabel = new Label("Insert to index")
+        insertToIndexLabel.layoutX = PossX
+        insertToIndexLabel.layoutY = 90
+
+        val PossYInsertToIndex = 110
+
+        val insertToIndexTextFieldOne = new TextField
+        insertToIndexTextFieldOne.layoutX = PossX
+        insertToIndexTextFieldOne.layoutY = PossYInsertToIndex
+        insertToIndexTextFieldOne.prefWidth = 100
+        insertToIndexTextFieldOne.promptText = "element:"
+
+        val insertToIndexTextFieldTwo = new TextField
+        insertToIndexTextFieldTwo.layoutX = PossX+100
+        insertToIndexTextFieldTwo.layoutY = PossYInsertToIndex
+        insertToIndexTextFieldTwo.prefWidth = 50
+        insertToIndexTextFieldTwo.promptText = "index:"
+
+        val push_button = new Button("push")
+        push_button.layoutX = PossX+160
+        push_button.layoutY = PossYInsertToIndex
+        push_button.prefWidth = 60
+
+        val deleteLabel = new Label("Delete:")
+        deleteLabel.layoutX = PossX
+        deleteLabel.layoutY = 150
+
+        val PossYDelete = 170
+
+        val deleteTextFieldOne = new TextField
+        deleteTextFieldOne.layoutX = PossX
+        deleteTextFieldOne.layoutY = PossYDelete
+        deleteTextFieldOne.prefWidth = 100
+        deleteTextFieldOne.promptText = "element:"
+
+        val deleteTextFieldTwo = new TextField
+        deleteTextFieldTwo.layoutX = PossX+100
+        deleteTextFieldTwo.layoutY = PossYDelete
+        deleteTextFieldTwo.prefWidth = 50
+        deleteTextFieldTwo.promptText = "index:"
+
+        val delete_button = new Button("Del")
+        delete_button.layoutX = PossX+160
+        delete_button.layoutY = PossYDelete
+        delete_button.prefWidth = 60
+
+
+        val changeTypeLabel = new Label("To change type TList:")
+        changeTypeLabel.layoutX = PossX
+        changeTypeLabel.layoutY = 250
+
+        val PossYChange = 270
+
+        val changeTextField = new TextField
+        changeTextField.layoutX = PossX
+        changeTextField.layoutY = PossYChange
+        changeTextField.prefWidth = 100
+        changeTextField.promptText = "type:"
+
+        val changeType_button = new Button("Del")
+        changeType_button.layoutX = PossX+110
+        changeType_button.layoutY = PossYChange
+        changeType_button.prefWidth = 60
+
+        val findLabel = new Label("Find:")
+        findLabel.layoutX = PossX
+        findLabel.layoutY = 320
+
+        val PossYFindEl = 340
+        val PossYFindIn = 370
+
+        val findElTextField = new TextField
+        findElTextField.layoutX = PossX
+        findElTextField.layoutY = PossYFindEl
+        findElTextField.prefWidth = 100
+        findElTextField.promptText = "element:"
+
+        val findElem_button = new Button("find")
+        findElem_button.layoutX = PossX+110
+        findElem_button.layoutY = PossYFindEl
+        findElem_button.prefWidth = 60
+
+        val findOutLabelOne = new Label("-")
+        findOutLabelOne.layoutX = PossX+110+70
+        findOutLabelOne.layoutY = PossYFindEl
+
+        val findInTextField = new TextField
+        findInTextField.layoutX = PossX
+        findInTextField.layoutY = PossYFindIn
+        findInTextField.prefWidth = 100
+        findInTextField.promptText = "element:"
+
+        val findIndex_button = new Button("find")
+        findIndex_button.layoutX = PossX+110
+        findIndex_button.layoutY = PossYFindIn
+        findIndex_button.prefWidth = 60
+
+        val findOutLabelTwo = new Label("-")
+        findOutLabelTwo.layoutX = PossX+110+70
+        findOutLabelTwo.layoutY = PossYFindIn
+
+
         val textArea = new TextArea
-
-//        положение кнопок
-//        pushFront_button.layoutX = XSetTwo
-//        pushFront_button.layoutY = YSetTwo
-//        pushBack_button.layoutX = XSetTwo
-//        pushBack_button.layoutY = YSetTwo+spaceTwo
-//        add_button.layoutX = XSetTwo
-//        add_button.layoutY = YSetTwo+spaceTwo+spaceTwo
-//        delete_button.layoutX = XSetTwo
-//        delete_button.layoutY = YSetTwo+spaceTwo+spaceTwo+spaceTwo
         textArea.layoutX = fullScreenX/3 // <--- пробование динамического расположения (при создании окна - НЕПРИИЗМЕНЕНИИРАЗМЕРА)
         textArea.layoutY = fullScreenY-(fullScreenY-30)
         textArea.prefHeight = (fullScreenY-75)
@@ -80,19 +190,34 @@ object GUI_View extends JFXApp {
         textArea.promptText = "TList:"
 
 //      список крнтента
-        private val buttonList = List(
-//          download_button,
-//          save_button,
-//          sort_button,
-//          pushBack_button,
-//          pushFront_button,
-//          add_button,
-//          delete_button,
+        private val contentList = List(
           textArea,
-          menuBar
+          menuBar,
+          insertLabel,
+          insertTextField,
+          pushFront_button,
+          pushBack_button,
+          insertToIndexLabel,
+          insertToIndexTextFieldOne,
+          insertToIndexTextFieldTwo,
+          push_button,
+          deleteLabel,
+          deleteTextFieldOne,
+          deleteTextFieldTwo,
+          delete_button,
+          changeTypeLabel,
+          changeTextField,
+          changeType_button,
+          findLabel,
+          findElTextField,
+          findElem_button,
+          findOutLabelOne,
+          findInTextField,
+          findIndex_button,
+          findOutLabelTwo
         )
 
-        content = buttonList
+        content = contentList
       }
     }
 }
