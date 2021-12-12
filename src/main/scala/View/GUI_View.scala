@@ -4,9 +4,10 @@ package View
 import scala.collection.immutable._
 import scalafx.Includes._
 import scalafx.application.JFXApp
+import scalafx.event.ActionEvent
 import scalafx.scene.Scene
 import scalafx.scene.control._
-import scalafx.scene.input.{KeyCodeCombination,KeyCode,KeyCombination}
+import scalafx.scene.input.{KeyCode, KeyCodeCombination, KeyCombination}
 import scalafx.scene.layout.VBox
 import scalafx.scene.paint.Color._
 import scalafx.scene.shape.Rectangle
@@ -15,6 +16,8 @@ import scalafx.scene.shape.Rectangle
 object GUI_View extends JFXApp {
   val fullScreenX = 845
   val fullScreenY = 480
+
+
 
     stage = new JFXApp.PrimaryStage {
       title.value = "KiTPO GUI TList"
@@ -38,6 +41,7 @@ object GUI_View extends JFXApp {
         save_menu.accelerator = new KeyCodeCombination(KeyCode.I,KeyCombination.ControlDown)
         val exit_menu = new MenuItem("exit")
         exit_menu.accelerator = new KeyCodeCombination(KeyCode.D,KeyCombination.ControlDown)
+        exit_menu.onAction = (e:ActionEvent) => sys.exit(0)
         menuFile.items = List(load_menu,save_menu,new SeparatorMenuItem,exit_menu)
 
 //        TList menu bar
@@ -121,10 +125,11 @@ object GUI_View extends JFXApp {
         deleteTextFieldTwo.prefWidth = 50
         deleteTextFieldTwo.promptText = "index:"
 
-        val delete_button = new Button("Del")
+        val delete_button = new Button("del")
         delete_button.layoutX = PossX+160
         delete_button.layoutY = PossYDelete
         delete_button.prefWidth = 60
+
 
 
         val changeTypeLabel = new Label("To change type TList:")
@@ -133,6 +138,20 @@ object GUI_View extends JFXApp {
 
         val PossYChange = 270
 
+        val change_menuButton = new MenuButton("type TList")
+        change_menuButton.layoutX = PossX
+        change_menuButton.layoutY = PossYChange
+
+        val integer_menuButton = new RadioMenuItem("Integer")
+        integer_menuButton.selected = true
+        integer_menuButton.onAction = (e:ActionEvent) => println("yes")
+        val string_menuButton = new RadioMenuItem("String")
+        val group = new ToggleGroup
+
+        group.toggles = List(integer_menuButton,string_menuButton)
+        change_menuButton.items = List(integer_menuButton,string_menuButton)
+
+/*
         val changeTextField = new TextField
         changeTextField.layoutX = PossX
         changeTextField.layoutY = PossYChange
@@ -142,7 +161,7 @@ object GUI_View extends JFXApp {
         val changeType_button = new Button("Del")
         changeType_button.layoutX = PossX+110
         changeType_button.layoutY = PossYChange
-        changeType_button.prefWidth = 60
+        changeType_button.prefWidth = 60*/
 
         val findLabel = new Label("Find:")
         findLabel.layoutX = PossX
@@ -170,7 +189,7 @@ object GUI_View extends JFXApp {
         findInTextField.layoutX = PossX
         findInTextField.layoutY = PossYFindIn
         findInTextField.prefWidth = 100
-        findInTextField.promptText = "element:"
+        findInTextField.promptText = "index:"
 
         val findIndex_button = new Button("find")
         findIndex_button.layoutX = PossX+110
@@ -188,6 +207,7 @@ object GUI_View extends JFXApp {
         textArea.prefHeight = (fullScreenY-75)
         textArea.prefWidth = fullScreenX-(fullScreenX/3 + 25)
         textArea.promptText = "TList:"
+        textArea.editable = false
 
 //      список крнтента
         private val contentList = List(
@@ -202,12 +222,13 @@ object GUI_View extends JFXApp {
           insertToIndexTextFieldTwo,
           push_button,
           deleteLabel,
-          deleteTextFieldOne,
+//          deleteTextFieldOne,
           deleteTextFieldTwo,
           delete_button,
           changeTypeLabel,
-          changeTextField,
-          changeType_button,
+          change_menuButton,
+//          changeTextField,
+//          changeType_button,
           findLabel,
           findElTextField,
           findElem_button,
