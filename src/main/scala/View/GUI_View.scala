@@ -89,7 +89,6 @@ object GUI_View extends JFXApp {
             try {
               var tmp = insertTextField.getText().toInt
               list.pushFront(tmp)
-//              textArea.insertText(0, insertTextField.getText + "\n")
               textArea.clear()
               show_list()
             } catch {
@@ -111,7 +110,6 @@ object GUI_View extends JFXApp {
             try {
               var tmp = insertTextField.getText().toInt
               list.pushEnd(tmp)
-//              textArea.appendText(insertTextField.getText + "\n")
               textArea.clear()
               show_list()
             } catch {
@@ -145,6 +143,22 @@ object GUI_View extends JFXApp {
         push_button.layoutX = PossX+160
         push_button.layoutY = PossYInsertToIndex
         push_button.prefWidth = 60
+        push_button.onAction = (e:ActionEvent) => {
+          if(insertToIndexTextFieldOne.getText != "" && insertToIndexTextFieldTwo.getText != "") {
+            try {
+              var tmp = insertToIndexTextFieldOne.getText().toInt
+              var tmpIndex = insertToIndexTextFieldTwo.getText().toInt
+              list.add(tmp,tmpIndex)
+              textArea.clear()
+              show_list()
+            } catch {
+              case e: Exception => e.printStackTrace()
+            }finally {
+              insertToIndexTextFieldOne.clear()
+              insertToIndexTextFieldTwo.clear()
+            }
+          }
+        }
 
         val deleteLabel = new Label("Delete:")
         deleteLabel.layoutX = PossX
@@ -168,6 +182,20 @@ object GUI_View extends JFXApp {
         delete_button.layoutX = PossX+160
         delete_button.layoutY = PossYDelete
         delete_button.prefWidth = 60
+        delete_button.onAction = (e:ActionEvent) => {
+          if (deleteTextFieldTwo.getText != ""){
+            try{
+              var tmpIndex = deleteTextFieldTwo.getText().toInt
+              list.delete(tmpIndex)
+              textArea.clear()
+              show_list()
+            }catch {
+              case e:ActionEvent => e.printStackTrace()
+            }finally {
+              deleteTextFieldTwo.clear()
+            }
+          }
+        }
 
 
 

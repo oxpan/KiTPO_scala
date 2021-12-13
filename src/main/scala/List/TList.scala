@@ -77,6 +77,9 @@ class TList(var builder:Builder) extends Serializable
 
   def add(data:Any, index:Int):Boolean =
   {
+    if (index == 0){
+      return pushFront(data)
+    }
       val nNode:Node = new Node(data)
 
     if (head == null) {
