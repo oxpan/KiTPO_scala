@@ -9,12 +9,14 @@ import scalafx.Includes._
 import scalafx.application.JFXApp
 import scalafx.event.ActionEvent
 import scalafx.scene.Scene
+import scalafx.scene.control.Alert.AlertType
 import scalafx.scene.control._
 import scalafx.scene.input.{KeyCode, KeyCodeCombination, KeyCombination}
 import scalafx.scene.layout.{Background, BackgroundFill, VBox}
 import scalafx.scene.paint.Color
 import scalafx.scene.paint.Color._
 import scalafx.scene.shape.Rectangle
+import scalafx.stage.FileChooser
 
 import java.io.{FileInputStream, FileOutputStream, ObjectInputStream, ObjectOutputStream}
 
@@ -64,6 +66,7 @@ object GUI_View extends JFXApp {
             updateList()
           }
         }
+
         val save_menu = new MenuItem("save")
         save_menu.accelerator = new KeyCodeCombination(KeyCode.O,KeyCombination.ControlDown)
         save_menu.onAction = (e:ActionEvent) => {
@@ -143,7 +146,9 @@ object GUI_View extends JFXApp {
             deleteTextFieldTwo.clear()
           }
         }
-        menuSetting.items = List(autoClear)
+        val info_menuItem = new MenuItem("info")
+        info_menuItem.onAction = (e:ActionEvent) => info_alert.show()
+        menuSetting.items = List(autoClear,info_menuItem)
 
         menuBar.menus = List(menuFile,menuTList,menuSetting)
         menuBar.prefWidth = (fullScreenX)
@@ -321,10 +326,12 @@ object GUI_View extends JFXApp {
           try{
             if (list.getSize == 0){
               builder = new BuilderInteger
+              updateList()
             }
             else {
               string_menuButton.selected = true
               println("list no empty")
+              type_dialog_alter.show()
             }
           }catch {
             case e:Exception => e.printStackTrace()
@@ -337,10 +344,12 @@ object GUI_View extends JFXApp {
           try {
             if (list.getSize == 0){
               builder = new BuilderString
+              updateList()
             }
             else {
               println("list no empty")
               integer_menuButton.selected = true
+              type_dialog_alter.show()
             }
           }catch {
             case e:Exception => e.printStackTrace()
@@ -351,6 +360,9 @@ object GUI_View extends JFXApp {
         group.toggles = List(integer_menuButton,string_menuButton)
         change_menuButton.items = List(integer_menuButton,string_menuButton)
 
+        var typeName_label = Label("current type: " + builder.getName)
+        typeName_label.layoutX = PossX+120
+        typeName_label.layoutY = PossYChange+3
 
         val findLabel = new Label("Find:")
         findLabel.layoutX = PossX
@@ -455,7 +467,21 @@ object GUI_View extends JFXApp {
           size_list_label.setTextFill(Color.Black)
           textArea.clear()
           show_list()
+          typeName_label.setText("current type: " + builder.getName)
         }
+
+//        Диалоговые окна
+        val type_dialog_alter = new Alert(AlertType.Error,
+          "Изменения типа невоможно по причине - не пустой список.\n" +
+            "Перед изменением очистете список комбинацей ctrl+l")
+        type_dialog_alter.setTitle("Изменение типи TList")
+        type_dialog_alter.setHeaderText("ERROR!")
+
+        val info_alert = new Alert(AlertType.Information,
+          "version: 14.1b\n" +
+            " 2021")
+        info_alert.setTitle("Info")
+        info_alert.setHeaderText("Information:")
 
 //      список крнтента
         private val contentList = List(
@@ -477,6 +503,7 @@ object GUI_View extends JFXApp {
           delete_button,
           changeTypeLabel,
           change_menuButton,
+          typeName_label,
 //          changeTextField,
 //          changeType_button,
           findLabel,
