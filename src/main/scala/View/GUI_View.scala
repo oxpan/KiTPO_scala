@@ -52,6 +52,11 @@ object GUI_View extends JFXApp {
             var loaded:TList = i.readObject().asInstanceOf[TList]
             builder = loaded.getBuilder
             list = loaded
+            if (builder.getName == "Integer")
+              integer_menuButton.selected = true
+            else
+              string_menuButton.selected = true
+
             println("success load")
           }catch {
             case e:Exception => println("ERROR load")
