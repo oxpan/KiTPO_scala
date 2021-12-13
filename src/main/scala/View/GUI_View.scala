@@ -24,7 +24,7 @@ object GUI_View extends JFXApp {
   val fullScreenY = 480
   var builder:Builder = new BuilderInteger
   var list:TList = new TList(builder)
-
+  var auto_clear_TextField:Boolean = true
 
 
 
@@ -123,9 +123,21 @@ object GUI_View extends JFXApp {
 
 //        menu setting
         val menuSetting = new Menu("setting")
-        val autoClear = new CheckMenuItem("auto-clearLabel")
+        val autoClear = new CheckMenuItem("auto-clearTextField")
         autoClear.accelerator = new KeyCodeCombination(KeyCode.W,KeyCombination.ControlDown)
-        //давай потом!
+        autoClear.selected = true
+        autoClear.onAction = (e:ActionEvent) => {
+          if (auto_clear_TextField == true)
+            auto_clear_TextField = false
+          else {
+            auto_clear_TextField = true
+            insertTextField.clear()
+            insertTextField.clear()
+            insertToIndexTextFieldOne.clear()
+            insertToIndexTextFieldTwo.clear()
+            deleteTextFieldTwo.clear()
+          }
+        }
         menuSetting.items = List(autoClear)
 
         menuBar.menus = List(menuFile,menuTList,menuSetting)
@@ -153,13 +165,14 @@ object GUI_View extends JFXApp {
         pushFront_button.onAction = (e:ActionEvent) => {
           if(insertTextField.getText != "") {
             try {
-              var tmp = insertTextField.getText().toInt
-              list.pushFront(tmp)
+              var tmp = insertTextField.getText()
+              list.pushFront(builder.parseObject(tmp))
               updateList()
             } catch {
               case e: Exception => e.printStackTrace()
             }finally {
-              insertTextField.clear()
+              if (auto_clear_TextField)
+                insertTextField.clear()
             }
           }
         }
@@ -173,13 +186,14 @@ object GUI_View extends JFXApp {
         pushBack_button.onAction = (e:ActionEvent) => {
           if (insertTextField.getText != ""){
             try {
-              var tmp = insertTextField.getText().toInt
-              list.pushEnd(tmp)
+              var tmp = insertTextField.getText()
+              list.pushEnd(builder.parseObject(tmp))
               updateList()
             } catch {
               case e:Exception => e.printStackTrace()
             }finally {
-              insertTextField.clear()
+              if (auto_clear_TextField)
+                insertTextField.clear()
             }
           }
         }
@@ -209,15 +223,20 @@ object GUI_View extends JFXApp {
         push_button.onAction = (e:ActionEvent) => {
           if(insertToIndexTextFieldOne.getText != "" && insertToIndexTextFieldTwo.getText != "") {
             try {
-              var tmp = insertToIndexTextFieldOne.getText().toInt
+              if (builder.getName == "Integer"){
+
+              }
+              var tmp = insertToIndexTextFieldOne.getText()
               var tmpIndex = insertToIndexTextFieldTwo.getText().toInt
-              list.add(tmp,tmpIndex)
+              list.add(builder.parseObject(tmp),tmpIndex)
               updateList()
             } catch {
               case e: Exception => e.printStackTrace()
             }finally {
-              insertToIndexTextFieldOne.clear()
-              insertToIndexTextFieldTwo.clear()
+              if (auto_clear_TextField) {
+                insertToIndexTextFieldOne.clear()
+                insertToIndexTextFieldTwo.clear()
+              }
             }
           }
         }
@@ -253,7 +272,8 @@ object GUI_View extends JFXApp {
             }catch {
               case e:ActionEvent => e.printStackTrace()
             }finally {
-              deleteTextFieldTwo.clear()
+              if (auto_clear_TextField)
+                deleteTextFieldTwo.clear()
             }
           }
         }
@@ -278,6 +298,7 @@ object GUI_View extends JFXApp {
               builder = new BuilderInteger
             }
             else {
+              string_menuButton.selected = true
               println("list no empty")
             }
           }catch {
@@ -294,6 +315,7 @@ object GUI_View extends JFXApp {
             }
             else {
               println("list no empty")
+              integer_menuButton.selected = true
             }
           }catch {
             case e:Exception => e.printStackTrace()
