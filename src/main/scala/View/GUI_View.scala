@@ -472,9 +472,9 @@ object GUI_View extends JFXApp {
 
 //        Диалоговые окна
         val type_dialog_alter = new Alert(AlertType.Error,
-          "Изменения типа невоможно по причине - не пустой список.\n" +
-            "Перед изменением очистете список комбинацей ctrl+l")
-        type_dialog_alter.setTitle("Изменение типи TList")
+          "Type change is not possible for a reason - not an empty list.\n" +
+            "Before changing, clear the list with the combination ctrl+l")
+        type_dialog_alter.setTitle("Change type TList")
         type_dialog_alter.setHeaderText("ERROR!")
 
         val info_alert = new Alert(AlertType.Information,
