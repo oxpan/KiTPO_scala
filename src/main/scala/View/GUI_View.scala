@@ -1,6 +1,9 @@
 package git.group
 package View
 
+import git.group.Builder.{Builder, BuilderInteger}
+import git.group.List.{TList,DoIt}
+
 import scala.collection.immutable._
 import scalafx.Includes._
 import scalafx.application.JFXApp
@@ -8,7 +11,8 @@ import scalafx.event.ActionEvent
 import scalafx.scene.Scene
 import scalafx.scene.control._
 import scalafx.scene.input.{KeyCode, KeyCodeCombination, KeyCombination}
-import scalafx.scene.layout.VBox
+import scalafx.scene.layout.{Background, BackgroundFill, VBox}
+import scalafx.scene.paint.Color
 import scalafx.scene.paint.Color._
 import scalafx.scene.shape.Rectangle
 
@@ -16,6 +20,9 @@ import scalafx.scene.shape.Rectangle
 object GUI_View extends JFXApp {
   val fullScreenX = 845
   val fullScreenY = 480
+  var builder:Builder = new BuilderInteger
+  var list:TList = new TList(builder)
+
 
 
 
@@ -77,12 +84,44 @@ object GUI_View extends JFXApp {
         pushFront_button.layoutX = PossX+110
         pushFront_button.layoutY = PossYInsert
         pushFront_button.prefWidth = 60
+        pushFront_button.onAction = (e:ActionEvent) => {
+          if(insertTextField.getText != "") {
+            try {
+              var tmp = insertTextField.getText().toInt
+              list.pushFront(tmp)
+//              textArea.insertText(0, insertTextField.getText + "\n")
+              textArea.clear()
+              show_list()
+            } catch {
+              case e: Exception => e.printStackTrace()
+            }finally {
+              insertTextField.clear()
+            }
+          }
+        }
+
 
 
         val pushBack_button = new Button("back")
         pushBack_button.layoutX = PossX+110+70
         pushBack_button.layoutY = PossYInsert
         pushBack_button.prefWidth = 60
+        pushBack_button.onAction = (e:ActionEvent) => {
+          if (insertTextField.getText != ""){
+            try {
+              var tmp = insertTextField.getText().toInt
+              list.pushEnd(tmp)
+//              textArea.appendText(insertTextField.getText + "\n")
+              textArea.clear()
+              show_list()
+            } catch {
+              case e:Exception => e.printStackTrace()
+            }finally {
+              insertTextField.clear()
+            }
+          }
+
+        }
 
         val insertToIndexLabel = new Label("Insert to index")
         insertToIndexLabel.layoutX = PossX
@@ -151,17 +190,6 @@ object GUI_View extends JFXApp {
         group.toggles = List(integer_menuButton,string_menuButton)
         change_menuButton.items = List(integer_menuButton,string_menuButton)
 
-/*
-        val changeTextField = new TextField
-        changeTextField.layoutX = PossX
-        changeTextField.layoutY = PossYChange
-        changeTextField.prefWidth = 100
-        changeTextField.promptText = "type:"
-
-        val changeType_button = new Button("Del")
-        changeType_button.layoutX = PossX+110
-        changeType_button.layoutY = PossYChange
-        changeType_button.prefWidth = 60*/
 
         val findLabel = new Label("Find:")
         findLabel.layoutX = PossX
@@ -180,6 +208,10 @@ object GUI_View extends JFXApp {
         findElem_button.layoutX = PossX+110
         findElem_button.layoutY = PossYFindEl
         findElem_button.prefWidth = 60
+        findElem_button.onAction = (e:ActionEvent) => {
+          findOutLabelOne.setText("false")
+          findOutLabelOne.setTextFill(Color.Red)
+        }
 
         val findOutLabelOne = new Label("-")
         findOutLabelOne.layoutX = PossX+110+70
@@ -195,6 +227,10 @@ object GUI_View extends JFXApp {
         findIndex_button.layoutX = PossX+110
         findIndex_button.layoutY = PossYFindIn
         findIndex_button.prefWidth = 60
+        findIndex_button.onAction = (e:ActionEvent) => {
+          findOutLabelTwo.setText("false")
+          findOutLabelTwo.setTextFill(Color.Red)
+        }
 
         val findOutLabelTwo = new Label("-")
         findOutLabelTwo.layoutX = PossX+110+70
@@ -208,6 +244,15 @@ object GUI_View extends JFXApp {
         textArea.prefWidth = fullScreenX-(fullScreenX/3 + 25)
         textArea.promptText = "TList:"
         textArea.editable = false
+
+        private def show_list() = {
+          list.forEach(new DoIt{
+            override def doIt(o: Any): Unit = {
+//              textArea.clear()
+              textArea.appendText(o.toString() + "\n")
+            }
+          })
+        }
 
 //      список крнтента
         private val contentList = List(

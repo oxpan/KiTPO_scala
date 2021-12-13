@@ -14,7 +14,7 @@ object main extends App {
 //      flag = consol.toBuilder(scala.io.StdIn.readLine())
 //    }
 //    consol.run()
-//    val view = GUI_View
+
 
 //  }
 }
