@@ -89,8 +89,7 @@ object GUI_View extends JFXApp {
             try {
               var tmp = insertTextField.getText().toInt
               list.pushFront(tmp)
-              textArea.clear()
-              show_list()
+              updateList()
             } catch {
               case e: Exception => e.printStackTrace()
             }finally {
@@ -110,8 +109,7 @@ object GUI_View extends JFXApp {
             try {
               var tmp = insertTextField.getText().toInt
               list.pushEnd(tmp)
-              textArea.clear()
-              show_list()
+              updateList()
             } catch {
               case e:Exception => e.printStackTrace()
             }finally {
@@ -149,8 +147,7 @@ object GUI_View extends JFXApp {
               var tmp = insertToIndexTextFieldOne.getText().toInt
               var tmpIndex = insertToIndexTextFieldTwo.getText().toInt
               list.add(tmp,tmpIndex)
-              textArea.clear()
-              show_list()
+              updateList()
             } catch {
               case e: Exception => e.printStackTrace()
             }finally {
@@ -187,8 +184,7 @@ object GUI_View extends JFXApp {
             try{
               var tmpIndex = deleteTextFieldTwo.getText().toInt
               list.delete(tmpIndex)
-              textArea.clear()
-              show_list()
+              updateList()
             }catch {
               case e:ActionEvent => e.printStackTrace()
             }finally {
@@ -237,8 +233,23 @@ object GUI_View extends JFXApp {
         findElem_button.layoutY = PossYFindEl
         findElem_button.prefWidth = 60
         findElem_button.onAction = (e:ActionEvent) => {
-          findOutLabelOne.setText("false")
-          findOutLabelOne.setTextFill(Color.Red)
+          if (findElTextField.getText != ""){
+            try{
+              var tmp = findElTextField.getText().toInt
+              if (list.finds(tmp) > -1)
+                findOutLabelOne.setText("index: "+list.finds(tmp))
+              else
+                findOutLabelOne.setText("NoIndex")
+            } catch {
+              case e:ActionEvent => e.printStackTrace()
+            } finally {
+              findOutLabelOne.setTextFill(Color.Black)
+            }
+          }
+          else{
+            findOutLabelOne.setText("NoElement!")
+            findOutLabelOne.setTextFill(Color.Red)
+          }
         }
 
         val findOutLabelOne = new Label("-")
@@ -256,13 +267,33 @@ object GUI_View extends JFXApp {
         findIndex_button.layoutY = PossYFindIn
         findIndex_button.prefWidth = 60
         findIndex_button.onAction = (e:ActionEvent) => {
-          findOutLabelTwo.setText("false")
-          findOutLabelTwo.setTextFill(Color.Red)
+          if (findInTextField.getText != ""){
+            try{
+              var tmpIndex = findInTextField.getText().toInt
+              if (tmpIndex <= list.getSize)
+                findOutLabelTwo.setText("element: "+list.find(tmpIndex))
+              else
+                findOutLabelTwo.setText("NoElement")
+            } catch {
+              case e:ActionEvent => e.printStackTrace()
+            } finally {
+              findOutLabelTwo.setTextFill(Color.Black)
+            }
+          }
+          else{
+            findOutLabelTwo.setText("NoIndex!")
+            findOutLabelTwo.setTextFill(Color.Red)
+          }
         }
 
         val findOutLabelTwo = new Label("-")
         findOutLabelTwo.layoutX = PossX+110+70
         findOutLabelTwo.layoutY = PossYFindIn
+
+        val size_list_label = new Label("sizeTList = 0")
+        size_list_label.layoutX = PossX
+        size_list_label.layoutY = 420
+        size_list_label.setTextFill(Color.Red)
 
 
         val textArea = new TextArea
@@ -280,6 +311,13 @@ object GUI_View extends JFXApp {
               textArea.appendText(o.toString() + "\n")
             }
           })
+        }
+
+        private def updateList()={
+          size_list_label.setText("sizeTList = "+ list.getSize)
+          size_list_label.setTextFill(Color.Black)
+          textArea.clear()
+          show_list()
         }
 
 //      список крнтента
@@ -308,7 +346,8 @@ object GUI_View extends JFXApp {
           findOutLabelOne,
           findInTextField,
           findIndex_button,
-          findOutLabelTwo
+          findOutLabelTwo,
+          size_list_label
         )
 
         content = contentList
