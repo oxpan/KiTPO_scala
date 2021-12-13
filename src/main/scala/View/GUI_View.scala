@@ -1,7 +1,7 @@
 package git.group
 package View
 
-import git.group.Builder.{Builder, BuilderInteger}
+import git.group.Builder.{Builder, BuilderInteger, BuilderString}
 import git.group.List.{DoIt, TList}
 
 import scala.collection.immutable._
@@ -272,8 +272,33 @@ object GUI_View extends JFXApp {
 
         val integer_menuButton = new RadioMenuItem("Integer")
         integer_menuButton.selected = true
-        integer_menuButton.onAction = (e:ActionEvent) => println("yes")
+        integer_menuButton.onAction = (e:ActionEvent) => {
+          try{
+            if (list.getSize == 0){
+              builder = new BuilderInteger
+            }
+            else {
+              println("list no empty")
+            }
+          }catch {
+            case e:Exception => e.printStackTrace()
+          }finally {
+            updateList()
+          }
+        }
         val string_menuButton = new RadioMenuItem("String")
+        string_menuButton.onAction = (e:ActionEvent) => {
+          try {
+            if (list.getSize == 0){
+              builder = new BuilderString
+            }
+            else {
+              println("list no empty")
+            }
+          }catch {
+            case e:Exception => e.printStackTrace()
+          }
+        }
         val group = new ToggleGroup
 
         group.toggles = List(integer_menuButton,string_menuButton)
