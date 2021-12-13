@@ -247,11 +247,31 @@ object GUI_View extends JFXApp {
 
         val PossYDelete = 170
 
-        val deleteTextFieldOne = new TextField
-        deleteTextFieldOne.layoutX = PossX
-        deleteTextFieldOne.layoutY = PossYDelete
-        deleteTextFieldOne.prefWidth = 100
-        deleteTextFieldOne.promptText = "element:"
+        val delFront = new Button("front")
+        delFront.layoutX = PossX
+        delFront.layoutY = PossYDelete
+        delFront.prefWidth = 45
+        delFront.onAction = (e:ActionEvent) => {
+          try{
+            list.delete(0)
+            updateList()
+          }catch {
+            case e:ActionEvent => e.printStackTrace()
+          }
+        }
+
+        val delBack = new Button("back")
+        delBack.layoutX = PossX+50
+        delBack.layoutY = PossYDelete
+        delBack.prefWidth = 45
+        delBack.onAction = (e:ActionEvent) => {
+          try{
+            list.delete(list.getSize-1)
+            updateList()
+          }catch {
+            case e:ActionEvent => e.printStackTrace()
+          }
+        }
 
         val deleteTextFieldTwo = new TextField
         deleteTextFieldTwo.layoutX = PossX+100
@@ -445,6 +465,8 @@ object GUI_View extends JFXApp {
           insertToIndexTextFieldTwo,
           push_button,
           deleteLabel,
+          delFront,
+          delBack,
 //          deleteTextFieldOne,
           deleteTextFieldTwo,
           delete_button,
