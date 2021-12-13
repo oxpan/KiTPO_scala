@@ -2,7 +2,7 @@ package git.group
 package View
 
 import git.group.Builder.{Builder, BuilderInteger}
-import git.group.List.{TList,DoIt}
+import git.group.List.{DoIt, TList}
 
 import scala.collection.immutable._
 import scalafx.Includes._
@@ -15,6 +15,8 @@ import scalafx.scene.layout.{Background, BackgroundFill, VBox}
 import scalafx.scene.paint.Color
 import scalafx.scene.paint.Color._
 import scalafx.scene.shape.Rectangle
+
+import java.io.{FileInputStream, FileOutputStream, ObjectInputStream, ObjectOutputStream}
 
 
 object GUI_View extends JFXApp {
@@ -43,9 +45,33 @@ object GUI_View extends JFXApp {
 //        file menu bar
         val menuFile = new Menu("file")
         val load_menu = new MenuItem("load")
-        load_menu.accelerator = new KeyCodeCombination(KeyCode.O,KeyCombination.ControlDown)
+        load_menu.accelerator = new KeyCodeCombination(KeyCode.I,KeyCombination.ControlDown)
+        load_menu.onAction = (e:ActionEvent) => {
+          try {
+            var i:ObjectInputStream = new ObjectInputStream(new FileInputStream("list.bin"))
+            var loaded:TList = i.readObject().asInstanceOf[TList]
+            builder = loaded.getBuilder
+            list = loaded
+            println("success load")
+          }catch {
+            case e:Exception => println("ERROR load")
+          }finally {
+            updateList()
+          }
+        }
         val save_menu = new MenuItem("save")
-        save_menu.accelerator = new KeyCodeCombination(KeyCode.I,KeyCombination.ControlDown)
+        save_menu.accelerator = new KeyCodeCombination(KeyCode.O,KeyCombination.ControlDown)
+        save_menu.onAction = (e:ActionEvent) => {
+          try{
+            var out:ObjectOutputStream = new ObjectOutputStream(new FileOutputStream("list.bin"))
+            out.writeObject(list)
+            println("success save")
+          }catch {
+            case e:Exception => println("ERROR save")
+          }finally {
+            updateList()
+          }
+        }
         val exit_menu = new MenuItem("exit")
         exit_menu.accelerator = new KeyCodeCombination(KeyCode.D,KeyCombination.ControlDown)
         exit_menu.onAction = (e:ActionEvent) => sys.exit(0)
@@ -55,16 +81,50 @@ object GUI_View extends JFXApp {
         val menuTList = new Menu("TList")
         val sort_menu = new MenuItem("sort")
         sort_menu.accelerator = new KeyCodeCombination(KeyCode.S,KeyCombination.ControlDown)
+        sort_menu.onAction = (e:ActionEvent) => {
+          try {
+            list.sort()
+            updateList()
+          }catch {
+            case e:Exception => e.printStackTrace()
+          }
+        }
         val gen_front = new MenuItem("genFront")
         gen_front.accelerator = new KeyCodeCombination(KeyCode.F,KeyCombination.ControlDown)
+        gen_front.onAction = (e:ActionEvent) => {
+          try{
+            list.pushFront(builder.createObject())
+            updateList()
+          }catch{
+            case e:Exception => e.printStackTrace()
+          }
+        }
         val gen_back = new MenuItem("genBack")
         gen_back.accelerator = new KeyCodeCombination(KeyCode.B,KeyCombination.ControlDown)
-        menuTList.items = List(sort_menu,new SeparatorMenuItem,gen_front,gen_back)
+        gen_back.onAction = (e:ActionEvent) => {
+          try {
+            list.pushEnd(builder.createObject())
+            updateList()
+          }catch {
+            case e:Exception => e.printStackTrace()
+          }
+        }
+        val clear_list_item = new MenuItem("clear")
+        clear_list_item.accelerator = new KeyCodeCombination(KeyCode.L,KeyCombination.ControlDown)
+        clear_list_item.onAction = (e:ActionEvent) => {
+          try {
+            list.clear()
+            updateList()
+          }catch {
+            case e:Exception => e.printStackTrace()
+          }
+        }
+        menuTList.items = List(sort_menu,new SeparatorMenuItem,gen_front,gen_back,new SeparatorMenuItem,clear_list_item)
 
 //        menu setting
         val menuSetting = new Menu("setting")
         val autoClear = new CheckMenuItem("auto-clearLabel")
-        autoClear.accelerator = new KeyCodeCombination(KeyCode.A,KeyCombination.ControlDown)
+        autoClear.accelerator = new KeyCodeCombination(KeyCode.W,KeyCombination.ControlDown)
         //давай потом!
         menuSetting.items = List(autoClear)
 
@@ -122,7 +182,6 @@ object GUI_View extends JFXApp {
               insertTextField.clear()
             }
           }
-
         }
 
         val insertToIndexLabel = new Label("Insert to index")
