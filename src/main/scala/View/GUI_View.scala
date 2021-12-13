@@ -61,8 +61,14 @@ object GUI_View extends JFXApp {
         gen_back.accelerator = new KeyCodeCombination(KeyCode.B,KeyCombination.ControlDown)
         menuTList.items = List(sort_menu,new SeparatorMenuItem,gen_front,gen_back)
 
+//        menu setting
+        val menuSetting = new Menu("setting")
+        val autoClear = new CheckMenuItem("auto-clearLabel")
+        autoClear.accelerator = new KeyCodeCombination(KeyCode.A,KeyCombination.ControlDown)
+        //давай потом!
+        menuSetting.items = List(autoClear)
 
-        menuBar.menus = List(menuFile,menuTList)
+        menuBar.menus = List(menuFile,menuTList,menuSetting)
         menuBar.prefWidth = (fullScreenX)
 
         val PossX = 10
