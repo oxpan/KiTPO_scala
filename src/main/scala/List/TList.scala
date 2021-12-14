@@ -184,6 +184,25 @@ class TList(var builder:Builder) extends Serializable
     -1
   }
 
+  def find_quantity(obj:Any):Int = {
+    var current:Node = head
+    var quantity:Int = 0
+    if (head == null){
+      return -1
+    }
+    else {
+      while (current != null){
+        if (current.data == obj){
+          quantity = quantity+1
+        }
+        current = current.next
+      }
+      return quantity
+    }
+
+    -1
+  }
+
   def sort():Boolean=
   {
     var r:TList = quickSort(this)

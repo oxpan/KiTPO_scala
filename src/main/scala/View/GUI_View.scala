@@ -441,11 +441,17 @@ object GUI_View extends JFXApp {
         findElem_button.onAction = (e:ActionEvent) => {
           if (findElTextField.getText != ""){
             try{
-              var tmp = findElTextField.getText().toInt
-              if (list.finds(tmp) > -1)
-                findOutLabelOne.setText("index: "+list.finds(tmp))
-              else
-                findOutLabelOne.setText("NoIndex")
+              var tmp = findElTextField.getText()
+              if (list.find_quantity(builder.parseObject(tmp)) == 1){
+                findOutLabelOne.setText("index: "+list.finds(builder.parseObject(tmp)))
+              }
+              else if (list.find_quantity(builder.parseObject(tmp)) == 0){
+                findOutLabelOne.setText("quantity: 0")
+              } else if (list.find_quantity(builder.parseObject(tmp)) == -1){
+                findOutLabelOne.setText("NoElement")
+              }else {
+                findOutLabelOne.setText("quantity: "+list.find_quantity(builder.parseObject(tmp)))
+              }
             } catch {
               case e:ActionEvent => e.printStackTrace()
             } finally {
