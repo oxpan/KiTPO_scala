@@ -124,7 +124,8 @@ class TList(var builder:Builder) extends Serializable
         if (toDelPrev != null) {
           toDelPrev.next = toDel.next
           toDel = null
-          tail = toDelPrev
+          if(toDelPrev.next == null)
+            tail = toDelPrev
         }
         else {
           head = toDel.next
