@@ -11,6 +11,7 @@ import scalafx.event.ActionEvent
 import scalafx.scene.Scene
 import scalafx.scene.control.Alert.AlertType
 import scalafx.scene.control._
+import scalafx.scene.image.{Image, ImageView}
 import scalafx.scene.input.{KeyCode, KeyCodeCombination, KeyCombination}
 import scalafx.scene.layout.{Background, BackgroundFill, VBox}
 import scalafx.scene.paint.Color
@@ -29,7 +30,6 @@ object GUI_View extends JFXApp {
   var auto_clear_TextField:Boolean = true
 
 
-
     stage = new JFXApp.PrimaryStage {
       title.value = "KiTPO GUI TList"
       width = fullScreenX
@@ -37,7 +37,7 @@ object GUI_View extends JFXApp {
       centerOnScreen()
 //      sizeToScene()
       resizable = false
-
+//      icons.add(new Image(getClass.getResource("ico.png").toString))
 
       scene = new Scene {
         fill = LightGreen
@@ -97,7 +97,7 @@ object GUI_View extends JFXApp {
             case e:Exception => e.printStackTrace()
           }
         }
-        val gen_front = new MenuItem("genFront")
+        val gen_front = new MenuItem("genPushFront")
         gen_front.accelerator = new KeyCodeCombination(KeyCode.F,KeyCombination.ControlDown)
         gen_front.onAction = (e:ActionEvent) => {
           try{
@@ -107,7 +107,7 @@ object GUI_View extends JFXApp {
             case e:Exception => e.printStackTrace()
           }
         }
-        val gen_back = new MenuItem("genBack")
+        val gen_back = new MenuItem("genPushBack")
         gen_back.accelerator = new KeyCodeCombination(KeyCode.B,KeyCombination.ControlDown)
         gen_back.onAction = (e:ActionEvent) => {
           try {
@@ -135,7 +135,7 @@ object GUI_View extends JFXApp {
         autoClear.accelerator = new KeyCodeCombination(KeyCode.W,KeyCombination.ControlDown)
         autoClear.selected = true
         autoClear.onAction = (e:ActionEvent) => {
-          if (auto_clear_TextField == true)
+          if (auto_clear_TextField)
             auto_clear_TextField = false
           else {
             auto_clear_TextField = true
@@ -533,6 +533,7 @@ object GUI_View extends JFXApp {
             "Before changing, clear the list with the combination ctrl+l")
         type_dialog_alter.setTitle("Change type TList")
         type_dialog_alter.setHeaderText("ERROR!")
+//        type_dialog_alter.setGraphic()
 
         val info_alert = new Alert(AlertType.Information,
           "version: 14.1b\n" +
