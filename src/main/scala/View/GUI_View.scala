@@ -484,7 +484,7 @@ object GUI_View extends JFXApp {
           if (findInTextField.getText != ""){
             try{
               var tmpIndex = findInTextField.getText().toInt
-              if (tmpIndex <= list.getSize) {
+              if (tmpIndex < list.getSize) {
                 if(builder.getName == "String") {
                   findOutLabelTwo.setText("element:...")
 //                  findOutLabelTwo.setTooltip(
