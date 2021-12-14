@@ -179,7 +179,17 @@ object GUI_View extends JFXApp {
               list.pushFront(builder.parseObject(tmp))
               updateList()
             } catch {
-              case e: Exception => e.printStackTrace()
+              case e: Exception => {
+                var str = e.toString
+                str = str.substring(0,32)
+                println(str)
+                if (str == "java.lang.NumberFormatException:"){
+                  warningFormat_alert.show()
+                }
+                else {
+                  e.printStackTrace()
+                }
+              }
             }finally {
               if (auto_clear_TextField)
                 insertTextField.clear()
@@ -200,7 +210,17 @@ object GUI_View extends JFXApp {
               list.pushEnd(builder.parseObject(tmp))
               updateList()
             } catch {
-              case e:Exception => e.printStackTrace()
+              case e:Exception => {
+                var str = e.toString
+                str = str.substring(0,32)
+                println(str)
+                if (str == "java.lang.NumberFormatException:"){
+                  warningFormat_alert.show()
+                }
+                else {
+                  e.printStackTrace()
+                }
+              }
             }finally {
               if (auto_clear_TextField)
                 insertTextField.clear()
@@ -232,16 +252,23 @@ object GUI_View extends JFXApp {
         push_button.prefWidth = 60
         push_button.onAction = (e:ActionEvent) => {
           if(insertToIndexTextFieldOne.getText != "" && insertToIndexTextFieldTwo.getText != "") {
-            try {
-              if (builder.getName == "Integer"){
-
-              }
+            try{
               var tmp = insertToIndexTextFieldOne.getText()
               var tmpIndex = insertToIndexTextFieldTwo.getText().toInt
               list.add(builder.parseObject(tmp),tmpIndex)
               updateList()
             } catch {
-              case e: Exception => e.printStackTrace()
+              case e: Exception => {
+                var str = e.toString
+                str = str.substring(0,32)
+                println(str)
+                if (str == "java.lang.NumberFormatException:"){
+                  warningFormat_alert.show()
+                }
+                else {
+                  e.printStackTrace()
+                }
+              }
             }finally {
               if (auto_clear_TextField) {
                 insertToIndexTextFieldOne.clear()
@@ -266,7 +293,17 @@ object GUI_View extends JFXApp {
             list.delete(0)
             updateList()
           }catch {
-            case e:ActionEvent => e.printStackTrace()
+            case e:Exception => {
+              var str = e.toString
+              str = str.substring(0,32)
+              println(str)
+              if (str == "java.lang.NumberFormatException:"){
+                warningFormat_alert.show()
+              }
+              else {
+                e.printStackTrace()
+              }
+            }
           }
         }
 
@@ -279,7 +316,17 @@ object GUI_View extends JFXApp {
             list.delete(list.getSize-1)
             updateList()
           }catch {
-            case e:ActionEvent => e.printStackTrace()
+            case e:Exception => {
+              var str = e.toString
+              str = str.substring(0,32)
+              println(str)
+              if (str == "java.lang.NumberFormatException:"){
+                warningFormat_alert.show()
+              }
+              else {
+                e.printStackTrace()
+              }
+            }
           }
         }
 
@@ -300,7 +347,17 @@ object GUI_View extends JFXApp {
               list.delete(tmpIndex)
               updateList()
             }catch {
-              case e:ActionEvent => e.printStackTrace()
+              case e:Exception => {
+                var str = e.toString
+                str = str.substring(0,32)
+                println(str)
+                if (str == "java.lang.NumberFormatException:"){
+                  warningFormat_alert.show()
+                }
+                else {
+                  e.printStackTrace()
+                }
+              }
             }finally {
               if (auto_clear_TextField)
                 deleteTextFieldTwo.clear()
@@ -482,6 +539,11 @@ object GUI_View extends JFXApp {
             " 2021")
         info_alert.setTitle("Info")
         info_alert.setHeaderText("Information:")
+
+        val warningFormat_alert = new Alert(AlertType.Warning,
+          "we advise you to enter the desired type as specified in type TList")
+        warningFormat_alert.setTitle("invalid entry")
+        warningFormat_alert.setHeaderText("Warning")
 
 //      список крнтента
         private val contentList = List(
