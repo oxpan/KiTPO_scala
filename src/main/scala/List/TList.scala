@@ -116,7 +116,7 @@ class TList(var builder:Builder) extends Serializable
     else {
       if (head != tail) {
         if (index > 0) {
-          toDelPrev = findNode(index - 1)
+          toDelPrev = findNode(index-1)//-1?
           toDel = toDelPrev.next
         }
         else toDel = head

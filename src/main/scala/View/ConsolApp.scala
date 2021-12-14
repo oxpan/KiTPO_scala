@@ -48,7 +48,6 @@ class ConsolApp {
       var e:Exception = new Exception("OSHIBKA: нет такого типа")
       throw e
     }
-
   }
 
   private def drawList()={

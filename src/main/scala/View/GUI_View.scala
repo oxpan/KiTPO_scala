@@ -54,7 +54,7 @@ object GUI_View extends JFXApp {
             var loaded:TList = i.readObject().asInstanceOf[TList]
             builder = loaded.getBuilder
             list = loaded
-            if (builder.getName == "Integer")
+            if (builder.getName.equals("Integer"))
               integer_menuButton.selected = true
             else
               string_menuButton.selected = true
