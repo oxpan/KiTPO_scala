@@ -77,6 +77,9 @@ class TList(var builder:Builder) extends Serializable
 
   def add(data:Any, index:Int):Boolean =
   {
+    if (index == 0){
+      return pushFront(data)
+    }
       val nNode:Node = new Node(data)
 
     if (head == null) {
@@ -113,7 +116,7 @@ class TList(var builder:Builder) extends Serializable
     else {
       if (head != tail) {
         if (index > 0) {
-          toDelPrev = findNode(index - 1)
+          toDelPrev = findNode(index-1)//-1?
           toDel = toDelPrev.next
         }
         else toDel = head
@@ -121,11 +124,13 @@ class TList(var builder:Builder) extends Serializable
         if (toDelPrev != null) {
           toDelPrev.next = toDel.next
           toDel = null
+          tail = toDelPrev
         }
         else {
           head = toDel.next
           toDel = null
         }
+
       }
       else {
         head = null
@@ -136,6 +141,8 @@ class TList(var builder:Builder) extends Serializable
     size = size - 1
     true
   }
+
+
 
   private def findNode(id:Int):Node = {
     var res:Node = head
@@ -178,6 +185,25 @@ class TList(var builder:Builder) extends Serializable
         current = current.next
       }
     }
+    -1
+  }
+
+  def find_quantity(obj:Any):Int = {
+    var current:Node = head
+    var quantity:Int = 0
+    if (head == null){
+      return -1
+    }
+    else {
+      while (current != null){
+        if (current.data == obj){
+          quantity = quantity+1
+        }
+        current = current.next
+      }
+      return quantity
+    }
+
     -1
   }
 

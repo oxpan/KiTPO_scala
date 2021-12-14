@@ -1,0 +1,39 @@
+Manifest-Version: 1.0
+Main-Class: git.group.View.GUI_View
+Class-Path: scalafx_2.13-12.0.2-R18.jar scala-library-2.13.6.jar scala-c
+ ompiler.jar scala-library.jar scala-reflect.jar scala-xml_2.12-1.0.6.ja
+ r actions_2.12-1.5.5.jar caffeine-2.8.5.jar checker-qual-3.4.1.jar coll
+ ections_2.12-1.5.5.jar command_2.12-1.5.5.jar compiler-bridge_2.12-1.5.
+ 7.jar compiler-interface-1.5.7.jar completion_2.12-1.5.5.jar config-1.3
+ .3.jar core-macros_2.12-1.5.5.jar disruptor-3.4.2.jar error_prone_annot
+ ations-2.4.0.jar file-tree-views-2.1.6.jar gigahorse-core_2.12-0.5.0.ja
+ r gigahorse-okhttp_2.12-0.5.0.jar io_2.12-1.5.1.jar ipcsocket-1.3.1.jar
+  ivy-2.3.0-sbt-fbc4f586aeeb1591710b14eb4f41b94880dcd745.jar jansi-2.1.0
+ .jar jline-2.14.7-sbt-a1b0ffbb8f64bb820f4f84a0c07a0c0964507493.jar jlin
+ e-builtins-3.19.0.jar jline-reader-3.19.0.jar jline-style-3.19.0.jar jl
+ ine-terminal-3.19.0.jar jline-terminal-jansi-3.19.0.jar jline-terminal-
+ jna-3.19.0.jar jna-5.5.0.jar jna-platform-5.5.0.jar jsch-0.1.54.jar lau
+ ncher-interface-1.3.3.jar librarymanagement-core_2.12-1.5.3.jar library
+ management-ivy_2.12-1.5.3.jar lm-coursier-shaded_2.12-2.0.8.jar log4j-a
+ pi-2.11.2.jar log4j-core-2.11.2.jar log4j-slf4j-impl-2.11.2.jar logic_2
+ .12-1.5.5.jar main-settings_2.12-1.5.5.jar main_2.12-1.5.5.jar okhttp-3
+ .14.2.jar okhttp-urlconnection-3.7.0.jar okio-1.17.2.jar protocol_2.12-
+ 1.5.5.jar reactive-streams-1.0.2.jar run_2.12-1.5.5.jar sbinary_2.12-0.
+ 5.1.jar sbt-1.5.5.jar scala-collection-compat_2.12-2.4.2.jar scala-comp
+ iler-2.12.14.jar scala-library-2.12.14.jar scala-parser-combinators_2.1
+ 2-1.1.2.jar scala-reflect-2.12.14.jar scala-xml_2.12-1.3.0.jar scripted
+ -plugin_2.12-1.5.5.jar shaded-jawn-parser_2.12-0.9.1.jar shaded-scalajs
+ on_2.12-1.0.0-M4.jar sjson-new-core_2.12-0.9.1.jar sjson-new-murmurhash
+ _2.12-0.9.1.jar sjson-new-scalajson_2.12-0.9.1.jar slf4j-api-1.7.26.jar
+  ssl-config-core_2.12-0.4.0.jar task-system_2.12-1.5.5.jar tasks_2.12-1
+ .5.5.jar template-resolver-0.1.jar test-agent-1.5.5.jar test-interface-
+ 1.0.jar testing_2.12-1.5.5.jar util-cache_2.12-1.5.5.jar util-control_2
+ .12-1.5.5.jar util-interface-1.5.5.jar util-logging_2.12-1.5.5.jar util
+ -position_2.12-1.5.5.jar util-relation_2.12-1.5.5.jar util-tracking_2.1
+ 2-1.5.5.jar zero-allocation-hashing-0.10.1.jar zinc-apiinfo_2.12-1.5.7.
+ jar zinc-classfile_2.12-1.5.7.jar zinc-classpath_2.12-1.5.7.jar zinc-co
+ mpile-core_2.12-1.5.7.jar zinc-compile_2.12-1.5.7.jar zinc-core_2.12-1.
+ 5.7.jar zinc-lm-integration_2.12-1.5.5.jar zinc-persist-core-assembly-1
+ .5.7.jar zinc-persist_2.12-1.5.7.jar zinc_2.12-1.5.7.jar sbt-ide-settin
+ gs.jar scala-reflect-2.13.6.jar
+
