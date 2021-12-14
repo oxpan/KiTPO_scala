@@ -124,11 +124,13 @@ class TList(var builder:Builder) extends Serializable
         if (toDelPrev != null) {
           toDelPrev.next = toDel.next
           toDel = null
+          tail = toDelPrev
         }
         else {
           head = toDel.next
           toDel = null
         }
+
       }
       else {
         head = null
@@ -139,6 +141,8 @@ class TList(var builder:Builder) extends Serializable
     size = size - 1
     true
   }
+
+
 
   private def findNode(id:Int):Node = {
     var res:Node = head

@@ -9,7 +9,7 @@ object BuilderInteger {
 class BuilderInteger extends Builder with Serializable
 {
   private val min:Int = 0
-  private val max:Int = 100
+  private val max:Int = 99999
 
   override def createObject(): Any =
   {

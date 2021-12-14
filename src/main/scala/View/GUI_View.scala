@@ -383,6 +383,7 @@ object GUI_View extends JFXApp {
           try{
             if (list.getSize == 0){
               builder = new BuilderInteger
+              list = new TList(builder)
               updateList()
             }
             else {
@@ -401,6 +402,7 @@ object GUI_View extends JFXApp {
           try {
             if (list.getSize == 0){
               builder = new BuilderString
+              list = new TList(builder)
               updateList()
             }
             else {
@@ -482,9 +484,16 @@ object GUI_View extends JFXApp {
           if (findInTextField.getText != ""){
             try{
               var tmpIndex = findInTextField.getText().toInt
-              if (tmpIndex <= list.getSize)
-                findOutLabelTwo.setText("element: "+list.find(tmpIndex))
-              else
+              if (tmpIndex <= list.getSize) {
+                if(builder.getName == "String") {
+                  findOutLabelTwo.setText("element:...")
+//                  findOutLabelTwo.setTooltip(
+                  val tmpText = list.find(tmpIndex)
+                  alertTmp.setContentText(tmpText.toString)
+                  alertTmp.show()
+                } else
+                  findOutLabelTwo.setText("element: "+list.find(tmpIndex))
+              } else
                 findOutLabelTwo.setText("NoElement")
             } catch {
               case e:ActionEvent => e.printStackTrace()
@@ -501,6 +510,8 @@ object GUI_View extends JFXApp {
         val findOutLabelTwo = new Label("-")
         findOutLabelTwo.layoutX = PossX+110+70
         findOutLabelTwo.layoutY = PossYFindIn
+//        findOutLabelTwo.setTooltip()
+
 
         val size_list_label = new Label("sizeTList = 0")
         size_list_label.layoutX = PossX
@@ -551,6 +562,10 @@ object GUI_View extends JFXApp {
           "we advise you to enter the desired type as specified in type TList")
         warningFormat_alert.setTitle("invalid entry")
         warningFormat_alert.setHeaderText("Warning")
+
+        val alertTmp = new Alert(AlertType.Information,"")
+        alertTmp.setHeaderText("Information")
+
 
 //      список крнтента
         private val contentList = List(
