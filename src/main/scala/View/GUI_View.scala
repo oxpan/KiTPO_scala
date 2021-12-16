@@ -349,12 +349,15 @@ object GUI_View extends JFXApp {
             }catch {
               case e:Exception => {
                 var str = e.toString
-                str = str.substring(0,32)
+                str = str.substring(0,27)
                 println(str)
-                if (str == "java.lang.NumberFormatException:"){
+                if (str == "java.lang.NumberFormatExce:"){
                   warningFormat_alert.show()
                 }
-                else {
+                else if (str == "java.lang.NullPointerExcept"){
+                  rage_index_alert.show()
+                }
+                else{
                   e.printStackTrace()
                 }
               }
@@ -565,6 +568,11 @@ object GUI_View extends JFXApp {
 
         val alertTmp = new Alert(AlertType.Information,"")
         alertTmp.setHeaderText("Information")
+
+        val rage_index_alert = new Alert(AlertType.Error,
+          "rage index! (")
+        rage_index_alert.setTitle("invalid index")
+        rage_index_alert.setHeaderText("ERROR")
 
 
 //      список крнтента
